@@ -1,5 +1,6 @@
 \documentclass{article}
 \input{setup.tex}
+\usepackage{quiver}
 
 \renewcommand*\contentsname{Table of Content}
 
@@ -1676,13 +1677,858 @@ From the perspective of this Hermitation inner product, the equation $\int \omeg
 
     Now define the map
     \[\Omega \to \Cbb^{2g}, \omega \mapsto (\int_{a_i} \omega, \int_{b_i} \omega)_i,\]
-    we have just shown that this is an injective map.
-    
+    we have just shown that this is an injective map. Hence, $\Omega(X)$ is finite dimensional over $\Cbb$.
     % If $\int_{\gamma} \omega = 0$ for all closed pathes $\gamma$ on $X$, we can define $f(z) = \int_{p_0}^z \omega$ (this is path independent because $\omega$ integrates to zero on all closed pathes).\\
 
     % Recall that path-integrals are well-defined up to homotopy, we have a pairing
     % \[\pi_1(X, p_0) \times \Omega \to \Cbb\]
     % \[H_1(X) \times \Omega \to \Cbb\]
 \end{proof}
+
+\newpage
+\section{Lecture March 21st}
+
+\newpage
+\section{Lecture April 2nd}
+
+\subsection{Meromorphic Forms}
+
+\begin{definition}
+    We say $\alpha \in M^{(1)}(X)$ (\textbf{meromorphic one forms}) if $\alpha$ is written in charts as $f dz$ for $f$ meromorphic on $X$ (we could think of $f = g/h$ as quotient of two holomorphic functions - this is always true locally as the poles are isolated). Equivalently, we an write $\alpha$ in local charts as
+    \[\alpha = \sum_{n = N}^\infty c_n z^n dz, \]
+    for some $N \in \Zbb$.
+\end{definition}
+
+Now we define the residue of a meromorphic one form.
+\begin{definition}
+    Let $p \in X$, $\alpha \in M^{(1)}(U)$ where $U$ is some neighborhood containing $p$. We define 
+    \[\operatorname{Res}_p \alpha \coloneqq = \frac{1}{2\pi i} \int_{\partial B_\epsilon(p)} \alpha = C_{-1},\]
+    where $C_{-1}$ is the coefficient on $z^{-1}$ in the previous definition.
+\end{definition}
+
+\begin{remark}
+    While the residue of a meromorphic function is not well-defined, the residue of a meromorphic one-form is because the integration is well-defined on the one-forms and is independent on the chart chosen.
+\end{remark}
+
+\begin{theorem}
+    \begin{enumerate}
+        \item For $X$ compact, $\alpha \in M^{(1)}(X)$, we have that
+        \[\sum_{p \in X} \operatorname{Res}_p \alpha = 0.\]
+        \item For $U \subseteq X$ with $\overline{U}$ compact with smooth boundary, and $\alpha$ has no poles on $\partial U$, then
+        \[\sum_{p \in U} \operatorname{Res}_p \alpha = \frac{1}{2\pi i} \int_{\partial U} \alpha.\]
+    \end{enumerate}
+    Note that (1) is a special case of (2) with empty boundary.
+\end{theorem}
+
+\begin{proof}
+    We will only prove (2) as (1) is a corollary. Let $(p_i)_{i=1}^n$ be the poles of $\alpha$ in $U$ (this is because $\overline{U}$ is compact). Now consider the integral
+    \[\int_{\partial (U - \bigcup_{i} B_\epsilon(p_i))} \alpha = \int_{U - \bigcup_{i} B_\epsilon(p_i)} d\alpha = 0,\]
+    where the first equality follows from Stoke's theorem and the second one follows from $\alpha$ be a holomorphic one-form on the domain of the integral.\\
+
+    On the other hand, we have that
+    \[\int_{\partial (U - \bigcup_{i} B_\epsilon(p_i))}  = \int_{\partial U} \alpha - \sum_{i} \int_{\partial B_\epsilon(p_i)} \alpha \]
+    \[= \int_{\partial U} \alpha - \sum_{i} 2\pi i \operatorname{Res}_{p_i}(\alpha).\]
+    Note the abuse of notation of $i$ and $i$ in this proof.
+\end{proof}
+
+\subsection{The Mittag-Leffler Theorem}
+
+Now we will finally prove the Mittag-Leffler theorem.
+
+\begin{definition}
+    The \textbf{principal part} at $p \in X$ is the equivalence class $[g]$, where $g$ is a germ of meromorphic functions ($\mathcal{M}$) at $p$, and $g_0 \sim g_1$ if $g_0 - g_1$ is holomorphic around $p$. In other words, when we expand $g = \sum_{n = N}^\infty c_n z^n$ near the pole, we can $h(z) = \sum_{n = N}^\infty d_n z^n \sim g(z)$ if $c_n = d_n$ when $n < 0$.\\
+
+    For $g$ a principal part at $p$ and $\alpha \in \Omega(X)$ (holomorphic one forms), we define
+    \[\operatorname{Res}_p([g], \alpha) = \operatorname{Res}_p g\alpha.\]
+
+    We use $\mathcal{P} \mathcal{P}(X) = \{\text{finite sets } \{[p_i, g_i]\}_{i = 1}^n \text{ where } p_i \in X, g_i \text{ is principal part at } p_i \text{ (and $p_i$'s are distinct })\}$.\\
+
+    For $\eta = \{[g_i, p_i]\}$, we define
+    \[\operatorname{Res}(\eta, \alpha) = \sum_i \operatorname{Res}_{p_i} g_i \alpha.\]
+\end{definition}
+
+For $X$ compact, we define a map $pp: M(X) \to \mathcal{P} \mathcal{P}(X)$ as
+\[f \mapsto pp(f) \coloneqq \{[p_i, f]\ |\ p_i \text{ is a pole of $f$ }\}.\]
+
+\begin{theorem}[The Mittag-Leffler Theorem]
+    The sequence 
+    \[0 \to \mathcal{O}(X) \to M(X) \to \mathcal{P} \mathcal{P}(X) \to \Omega(X)^* \to 0\]
+    is an exact sequence of $\Cbb$-vector spaces (recall that $\mathcal{O}(X) \cong \Cbb$ is the space of holomorphic functions), where $\Omega(X)^*$ is the dual space.\\
+
+    The map $\mathcal{P} \mathcal{P}(X) \to \Omega(X)^*$ is given by the pairing $\operatorname{Res}: \mathcal{P} \mathcal{P}(X) \times \Omega(X) \to \Cbb$.
+\end{theorem}
+
+
+\begin{proof}
+    The exactness at $\mathcal{M}(X)$ is quite obvious (the only ones giving the empty set under $pp$ is the holomorphic functions). Hence we jusrt need to check exactness at $\mathcal{P} \mathcal{P}(X)$, for $\eta \in \mathcal{P} \mathcal{P}(X)$, there exists $f \in M(X)$ such that $pp(f) = \eta$ if and only if for all $\omega \in \Omega$, $\operatorname{Res}(\eta, \omega) = 0$.\\
+
+   The forward direction follows from the total residue on a compact Riemann surface being zero. The idea for the converse is that we want to ``make weak solution and correct it".\\
+
+    Given $\eta \in \mathcal{P} \mathcal{P}(X)$, $\eta = \sum_i [p_i, g_i]$, we let $$ g = \sum_{i = 1}^n \rho_i g_i, $$
+    for $g_i \in \mathcal{M}(U_i)$ with pole only at $p_i$. For each pole $p_i$, we take $p_i \in V_i \subseteq U_i$ and find a bump function $\rho_i \in D(U_i)$ (compactly supported smooth function on $U_i$) such that $\rho_i|_{V_i} \equiv 1$.\\
+
+    Then for $\omega \in \Omega(X)$, we consider
+    \begin{align*}
+        \int_X \overline{\partial} g \wedge \omega &= \int_{X - \bigcup_i \overline{V_i}} \overline{\partial} g \wedge \omega \tag*{$\overline{\partial} g = 0$ on $\overline{V_i}$ by convention}\\
+        &= \int_{X - \bigcup \overline{V_i}} d(g \omega)\\
+        &= \int_{\partial(X - \bigcup \overline{V_i})} g \omega \tag*{Stoke's Theorem}\\
+        &= - \sum_i \int_{\partial V_i} g \omega\\
+        &= - \sum_i \int_{\partial V_i} g_i \omega\\
+        &= - 2\pi i \sum_{i} \operatorname{Res}_{p_i}(g_i \omega)\\
+        &= -2\pi i \operatorname{Res}(\eta, \omega).
+    \end{align*}
+    Note the abuse of notation between $i$ and $i$ again.\\
+
+    Now if $\operatorname{Res}(\eta, \omega) = 0$ for all $\omega \in \Omega^{1}(X)$, then 
+    \[\int_X \overline{\partial} g \wedge \omega = 0.\]
+    By the $\overline{\partial}$-criterion, there exists $h \in \mathcal{E}(X)$ with $\overline{\partial} h = \overline{\partial} g$. Then $\overline{\partial}(g - h) = 0$ on $X$, and hence $pp(g - h) = \eta$ (because $\overline{\partial} h$ is holomorphic and zero on these $V_i$'s, they did not change principal parts).
+\end{proof}
+
+\begin{example}[Mittag-Leffler on Torus]
+Let $X = \frac{\Cbb}{\Lambda}$ the quotient of the complex plane by a lattice $\Lambda = \{\Zbb + \tau \Zbb\ |\ \tau \in \mathbb{H}^+ \}$ (where $\mathbb{H}^+$ is the upper-half-plane). In this case, we have that by the Hodge decomposition theorem last lecture that
+\[\Omega(X) = \{\lambda dz\ |\ \lambda \in \Cbb\}.\]
+A more elementary way to see this is - since $dz$ is a non-vanishing one form, we have 
+\[\alpha \in \Omega(X) \implies \frac{\alpha}{dz} \in \mathcal{O}(X) \implies \frac{\alpha}{dz} \in \Cbb.\]
+Now, given the principal part
+\[c(z) = \sum_{k = -n_i}^{-1} c_{i, k} (z - z_i)^k,\]
+we want to find out when there exists a meromorphic function on $X$ with principal part $c(z)$.\\
+
+Indeed, by the Mittag-Leffler theorem, we want to look at the residue pairing. Indeed, for all $\omega \in \Omega^1(X)$, we want to show
+\[\operatorname{Res}(\eta, \omega) = 0.\]
+However, we know that $\omega = \lambda dz$ for some $\lambda \in \Cbb$, so
+\[\operatorname{Res}(\eta, \omega) = 0 \iff \operatorname{Res}(\eta, dz) = 0 \iff \sum_{i} c_{i, -1} = 0\]
+\end{example}
+
+\begin{example}[Mittag-Leffler on $\hat{\Cbb}$]
+    If $\omega \in \Omega(\hat{\Cbb})$, we can get $g(z) = \int_0^z \omega$ (well-defined because the space is simply connected). Then we have that $g(z)$ is a holomorphic function on $\hat{\Cbb}$ and hence $g \equiv a \in \Cbb$. Thus, we have that $\omega = dg = 0$.\\
+
+    We note that for any $\eta \in PP(X)$, $\operatorname{Res}(\eta, \tau) = \operatorname{Res}(\eta, 0) = 0$ for any $\eta \in \Omega(\hat{\Cbb})$. Thus, by the Mittag-Leffler theorem, we have that there exists a meromorphic function with any specified principal part on the Riemann sphere.
+\end{example}
+
+\begin{theorem}
+    For any compact Riemann surface $X$, $M(X) \neq \mathcal{O}(X) \cong \Cbb$ (ie. it has non-trivial meromorphic function).
+\end{theorem}
+
+\begin{proof}
+    By the Mittag-Leffler theorem, it suffices for us to show that the kernel of the map $\mathcal{P} \mathcal{P}(X) \to \Omega(X)^*$ is not trivial. This is because $\Omega(X)^*$ is finite-dimensional $\Cbb$-vector space but $\mathcal{P} \mathcal{P}(f)$ is not finite dimensional.
+\end{proof}
+
+\newpage
+\section{Lecture April 4th}
+
+Today we hope to do the following,
+\begin{enumerate}
+    \item Introduce divisors.
+    \item State the Riemann-Roch theorem.
+    \item Prove the Riemann-Roch theorem for non-negative divisors.
+    \item There's an elementary proof to extend this to all divisors.
+\end{enumerate}
+
+\subsection{Divisors}
+
+Let $X$ be a compact Riemann surface.
+\begin{definition}
+    A \textbf{divisor} $D$ on $X$ if a finite $\Zbb$-formal sum of points on $X$. In other words, a divisor is of the form
+    \[D = \sum_{i = 1}^n a_i p_i, a_i \in \Zbb, p_i \in X.\]
+    Note that a divisor is the same as an integral $0$-chain on $X$.
+\end{definition}
+
+\begin{definition}
+    If $D = \sum a_i p_i$ is a divisor, then we define the \textbf{degree} of $D$ as
+    \[\operatorname{deg} D \coloneqq \sum a_i.\]
+\end{definition}
+
+One can quickly deduce that
+\begin{lemma}
+    Let $D, E$ be divisors on $X$ and $c \in \Zbb$, then
+    \[\deg(D+E) = \deg D + \deg E \text{ and } \deg(cD) = c \deg(D).\]
+\end{lemma}
+
+\begin{definition}
+If $f \in M(X)$ is a memorphic function on $X$ (or even $f \in M(U)$ where $U^{open} \subseteq X$ and $p \in X$), then we define \underline{the order of $f$ vanishing on $p$} as  
+\[\operatorname{ord}_p f \coloneqq \operatorname{Res}_p \frac{df}{f}.\]
+In this definition, we observe that we can always write $f$ and $df$ locally (up to translation) as
+\[f(z) = \sum_{n = N}^\infty c_n z^n \text{ and } df = \sum_{n = N}^\infty n c_n z^{n-1} dz,\]
+where $c_N \neq 0$ and $N \in \Zbb$. In this case, we see that locally
+\[\frac{df}{f} = (\frac{N}{z} + g(z) ) dz,\]
+for some $g(z)$ holomorphic near $0$. Hence, we see that under this description,
+\[\operatorname{ord}_0 f = N.\]
+\end{definition}
+
+
+\begin{definition}
+    Let $f \in M(X)$ be a meromorphic function, we define
+    \[(f) \coloneqq \sum_{p \in X} (ord_p f) \cdot p.\]
+    This may look like an infinite sum but a meromorphic function has finitely many zeroes and poles, and so we are okay.
+\end{definition}
+
+One can verify again that
+\begin{lemma}
+    Let $f, g \in M(X)$, then
+    \[(fg) = (f) + (g),\ (1/f) = -(f), \text{ and } \deg((f)) = \sum_{p \in X} \operatorname{Res}_p \frac{df}{f} = 0,\]
+    where the last equality follows from the previous lecture.
+\end{lemma}
+
+If $\omega \in M^{(1)}(X)$ is a meromorphic one form on $X$ and $p \in X$, then we can write $\omega = g \omega_0$ near $p$, with $g \in M(U)$, $\omega_0 \in \Omega(U)$ (holomorphic one-forms), such that $\omega_0(p) \neq 0$.\\
+
+Here we observe that for $\alpha \in \Omega(U)$, we have $\alpha(p) \in T^*_p X$, and 
+\[\alpha(p) = 0 \iff  \alpha(p)(v) = 0, \forall v \in T_p X.\]
+
+\begin{definition}
+Note that since $\omega_0(p) \neq 0$, we define that
+\[\ord_p \omega = \ord_p g.\]
+This gives us the following definition. Given $\omega \in M^{(1)}(X)$, we define
+    \[(\omega) = \sum_{p \in X} (\operatorname{ord}_p \omega)\cdot p.\]
+\end{definition}
+
+\begin{definition}
+    Let $D$ be a divisor on $X$, we define
+    \[\mathcal{O}_D = \{f \in M(X)\ |\ (f) + D \geq 0\}.\]
+    Note that in particular this implies that when $D = 0$,
+    \[\mathcal{O}_0 = \{f \in M(X)\ |\ (f) \geq 0\} = \mathcal{O}(X) = \Cbb.\]
+    Also note that $\mathcal{O}_D \subseteq M(X)$ is a $\Cbb$-vector subspace. Likewise, we also define
+    \[\Omega_D = \{\omega \in M^{(1)}(X)\ |\ (\omega) + D \geq 0\}.\]
+\end{definition}
+
+\begin{lemma}
+    For any divisor $D$ and $p \in X$,
+    \[\dim \mathcal{O}_D \leq \dim \mathcal{O}_{D + p} \leq 1 + \dim \mathcal{O}_D.\]
+    In particular, this implies that $\mathcal{O}_D$ is finitely-dimensional if and only if $\mathcal{O}_{D+p}$ is finite-dimensional.
+\end{lemma}
+
+\begin{proof}
+    Clearly, we have that $\mathcal{O}_{D} \subseteq \mathcal{O}_{D+p}$. If $\mathcal{O}_D = \mathcal{O}_{D+p}$, we are done.\\
+    
+    Suppose $\mathcal{O}_D$ is a proper subset of $\mathcal{O}_{D+p}$, then we can take an element $f_0 \in \mathcal{O}_{D+p} - \mathcal{O}_D$. Then for all $g \in \mathcal{O}_{D+p}$, there exists unique $c \in \Cbb$ such that $g - c f_0 \in \mathcal{O}_D$. Uniqueness is obvious (if there are different $c$, $c'$, it would imply $(c - c') f_0 \in \mathcal{O}_D$, contradiction)\\
+
+    For existence, locally at $p$ (by translation), we can write
+    \[f_0 = \sum_{n=-N-1}^\infty c_n z^n, g = \sum_{n=-N-1}^\infty b_n z^{-n}, \text{ and we take } c \coloneqq \frac{b_{N-1}}{c_{-N-1}},\]
+    with $c_{-N-1} \neq 0$. Here, we have removed at least one more pole at $p$, and hence $g - c f_0 \in \mathcal{O}_D$.\\
+
+    Now consider the sequence
+    % https://q.uiver.app/#q=WzAsNyxbMCwxLCIwIl0sWzQsMSwiMCJdLFsyLDEsIlxcbWF0aGNhbHtPfV97RCtwfSJdLFsxLDEsIlxcbWF0aGNhbHtPfV97RH0iXSxbMywxLCJcXENiYiJdLFsyLDAsImciXSxbMywwLCJjIl0sWzAsM10sWzMsMl0sWzIsNF0sWzQsMV0sWzUsNl1d
+\[\begin{tikzcd}
+	&& g & c \\
+	0 & {\mathcal{O}_{D}} & {\mathcal{O}_{D+p}} & \Cbb & 0
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=1-3, to=1-4]
+\end{tikzcd}\]
+This is split exact because the choice of $c$ is unique, meaning that $\mathcal{O}_{D+p} \cong \mathcal{O} \oplus \Cbb$. Hence we conclude from the differential complex that 
+ \[\dim \mathcal{O}_D \leq \dim \mathcal{O}_{D + p} \leq 1 + \dim \mathcal{O}_D.\]
+\end{proof}
+
+\begin{corollary}
+    \begin{enumerate}
+        \item $\mathcal{O}_D$ is finite-dimensional.
+        \item For $D, E \geq 0$, 
+        \[\dim \mathcal{O}_{D-E} \leq \dim \mathcal{O}_D \leq 1 + \deg D.\]
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+It suffices to prove the second part. For the second part, we first observe that because $E \geq 0$, $\mathcal{O}_{D - E}$ is a subspace of $\mathcal{O}_D$, and hence
+\[\dim \mathcal{O}_{D - E} \leq \dim \mathcal{O}_D.\]
+Now it follows by induction that $\dim \mathcal{O}_D \leq 1 + \deg D$ (break $D$ into a finite sum of single points).
+    
+    % For $D \geq 0$ and $D \neq 0$, we can write $D = p + D'$ such that $\deg D' = \deg D - 1$.\\
+    % Now we know from the previous lemma that
+    % \[\dim \mathcal{O}_D \leq 1 + \dim \mathcal{O}_{D'} \leq 1 + \deg D' + 1, \text{ by induction}. \]
+    % Hence we have that
+    % \[\dim \mathcal{O}_D \leq 1 + \deg D.\]
+    % Likewise, we can also obtain that
+    % \[\dim \mathcal{O}_{D-E} \leq \deg D + \dim \Omega = \deg D + g.\]
+    % \mattie{this corollary is confusing}
+\end{proof}
+
+\subsection{Riemann-Roch Theorem}
+
+\begin{theorem}[Riemann-Roch Theorem]
+    For any divisor $D$, 
+    \[\dim \mathcal{O}_D = \deg D + 1 - g + \dim \Omega_{-D},\]
+    where $\dim \Omega = g$ is the analytic genus. 
+\end{theorem}
+
+\begin{corollary}
+    If $D = 0$, then this reduces to
+    \[\dim \mathcal{O}(X) =  0 + 1 - g + \dim \Omega(X) = 1 - g + g = 1,\]
+    which is the same as we expected.
+\end{corollary}
+
+\begin{definition}
+        Given a general divisor $D$, we define
+    \[\mathcal{P}\mathcal{P}_D = \{\eta \in \mathcal{P} \mathcal{P}\ |\ (\eta) + D \geq 0\}. \]
+    Note that for $f \in M(X)$, we have that
+    \[f \in \mathcal{O}_D \iff (f) + D \geq 0 \iff (pp(f)) + D \geq 0 \iff pp(f) \in \mathcal{P}\mathcal{P}_D.\]
+\end{definition}
+
+Now we will prove the Riemann-Roch theorem in special cases for positive divisors (meaning $D \geq 0$).
+\begin{example}
+    If $X = \hat{\Cbb}$. For any $D \geq 0$, we have that $\Omega_{-D}(X) \subseteq \Omega(X) = 0$. Hence the statement of the Riemann-Roch theorem we want to prove becomes
+    \[\dim \mathcal{O}_D = \deg D + 1.\]
+
+    Now given any $f \in \mathcal{O}_D$, the principal parts of $f$ are in the support in the $D$. From the Mittag-Leffler theorem (because we are on a sphere, so no holomorphic one-forms), we have the short exact sequence  
+    \[0 \to \mathcal{O} \to \mathcal{O}_D \to_{pp} \mathcal{P} \mathcal{P}_D \to 0,\]
+    which is induced as a subcomplex of the original Mittag-Leffler sequence. Hence we have that
+    \[\dim \mathcal{O}_D = \dim \mathcal{O} + \dim \mathcal{P} \mathcal{P}_D = 1 + \deg D.\]
+\end{example}
+
+\begin{example}
+    In the case that $X = \Cbb / \Lambda$ is a torus. We recall that we proved as a corollary of the Mittag-Leffler theorem that a principal part has a corresponding meromorpic function if and only if its residue is zero after multiplying by $dz$ (a non-zero hlomorphic form). This gives the following exact sequence
+    \[0 \to \mathcal{O} \to \mathcal{O}_D \to \mathcal{P} \mathcal{P}_D \to \Cbb \to 0,\]
+    \[\mathcal{P} \mathcal{P}_D \to \Cbb, \eta \mapsto \operatorname{Res}(\eta dz).\]
+    Hence we have that
+    \[\dim \mathcal{O}_D = \dim \mathcal{O} + \dim \mathcal{P} \mathcal{P}_D - 1  = \deg D.\]
+\end{example}
+
+\newpage
+\section{Lecture April 9th}
+
+\subsection{Proving the Riemann-Roch Theorem}
+ Let $X$ be a compact Riemann surface throught out this lecture.  \\
+ 
+Recall that we have the notation
+\[\mathcal{P} \mathcal{P} = \{\{[g_i, p_i]\}_{i = 1}^n\ |\ g_i \in M(U_i) \text{ and } p_i \in U_i\},\]
+furthermore the elements $[g_i, p_i]$ are modded under the equivalence relation that $g_i \sim \hat{g}_i$ if $g_i - \hat{g}_i \in \mathcal{O}(U_i)$. In the language of sheaves and stalks, we are taking $g_i$ as an element of 
+\[g_i \in \frac{M_{p_i}}{\mathcal{O}_{p_i}} = \frac{\text{meromorphic germs at $p_i$}}{\text{holomorphic germs at $p_i$}}.\]
+
+We have previous proven the Mittag-Leffler theorem that tells us
+\begin{theorem}[Mittag-Leffler]
+If $\eta \in \mathcal{P} \mathcal{P}(X)$, then,
+\[\text{There exists $f \in M(X)$ such that $\eta = pp(f)$ (principal parts of $f$) $\iff$ for all $\omega \in \Omega(X)$, $\operatorname{Res}(\eta, \omega) = 0$}.\]
+Equivalently, we have an exact sequence of $\Cbb$-vector spaces,
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtYXRoY2Fse099KFgpIl0sWzIsMCwiTShYKSJdLFszLDAsIlxcbWF0aGNhbHtQfVxcbWF0aGNhbHtQfShYKSJdLFs0LDAsIlxcT21lZ2EoWCleKiJdLFswLDFdLFsxLDJdLFsyLDMsInBwIl0sWzMsNF1d
+\[\begin{tikzcd}
+	0 & {\mathcal{O}(X)} & {M(X)} & {\mathcal{P}\mathcal{P}(X)} & {\Omega(X)^*}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["pp", from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd},\]
+where $\Omega(X)^*$ denotes the dual space of $\Omega(X)$.
+\end{theorem}
+
+Recall that given a function $f \in M(X)$, we defined the divisor of $f$ as
+\[(f) \coloneqq \sum_{p \in X} (\ord_p f) \cdot p.\]
+Furthermore, given a general divisor $D$, we defined
+\[\mathcal{O}_D = \{f \in M(X)\ |\ (f) + D \geq 0\}\]
+
+\begin{definition}
+    Note that for $\eta \in \mathcal{P} \mathcal{P}(X)$, write $\eta = \{[g_i, p_i]\}_{i = 1}^n$, we define
+    \[(\eta) = \sum_{i = 1}^n (\ord_{p_i} g_i) \cdot p_i.\]
+    Given a general divisor $D$, we define
+    \[\mathcal{P}\mathcal{P}_D = \{\eta \in \mathcal{P} \mathcal{P}\ |\ (\eta) + D \geq 0\}. \]
+\end{definition}
+
+\begin{lemma}\label{lem::holo_pole_correspondence}
+    Let $f \in M(X)$, then
+    \[f \in \mathcal{O}_D \iff (f) + D \geq 0 \iff (pp(f)) + D \geq 0 \iff pp(f) \in \mathcal{P}\mathcal{P}_D.\]
+\end{lemma}
+
+\begin{question}
+    Given any positive divisor $D \geq 0$, what is $\dim \mathcal{P}\mathcal{P}_D$?
+\end{question}
+
+\begin{proposition}
+Given $D \geq 0$,
+    $$\dim \mathcal{P}\mathcal{P}_D = \deg D \text{ and } \dim \mathcal{O}_D \leq 1 + \deg D.$$
+\end{proposition}
+
+\begin{proof}
+    The second statement we proved last lecture. The first statement is obvious.
+\end{proof}
+
+\begin{proposition}
+For $D \geq 0$, the following sequence is also exact,
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxtYXRoY2Fse099KFgpIl0sWzIsMCwiXFxtYXRoY2Fse099X0QoWCkiXSxbMywwLCJcXG1hdGhjYWx7UH1cXG1hdGhjYWx7UH1fRChYKSJdLFs0LDAsIlxcT21lZ2EoWCleKiJdLFsyLDMsInBwIl0sWzAsMV0sWzEsMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {\mathcal{O}(X)} & {\mathcal{O}_D(X)} & {\mathcal{P}\mathcal{P}_D(X)} & {\Omega(X)^*}
+	\arrow["pp", from=1-3, to=1-4]
+	\arrow[from=1-1, to=1-2]
+	\arrow[hook, from=1-2, to=1-3]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}.\]
+\end{proposition}
+
+\begin{proof}
+    This follows directly from the exact sequence in the Mittag-Leffler Theorem and Lemma~\ref{lem::holo_pole_correspondence}.
+\end{proof}
+
+We have a residue pairing
+\[\operatorname{Res}: \mathcal{P} \mathcal{P}_D(X) \times \Omega(X) \to \Cbb,\]
+which induces a map
+\[\Omega(X) \to \mathcal{P}\mathcal{P}_D(X)^*.\]
+
+\begin{question}
+    How can we complete this to an exact sequence:
+    \[? \to \Omega(X) \to \mathcal{P} \mathcal{P}^*_D(X).\]
+\end{question}
+
+\begin{example}
+    Consider $\eta = \frac{2}{z} + \frac{5}{z^2} \in \mathcal{PP}_{2 \cdot 0}$, then
+    \[\operatorname{Res}_0(z dz, \eta) = 5.\]
+    \[\operatorname{Res}_0(z^2 dz, \eta) = 0.\]
+    Note we are requiring a zero of degree $2$ to remove all the poles.
+\end{example}
+
+\begin{proposition}
+    Likewise, if we consider
+    \[0 \to \Omega_{-D}(X) \to \Omega(X) \to \mathcal{P} \mathcal{P}^*_D(X),\]
+    this will be an exact sequence, where we can cancel out all the functions in the pairing.
+\end{proposition}
+
+\begin{proof}
+    Suppose $D = n \cdot p + D'$ when $p \notin \operatorname{supp}(D')$. Then if $\omega \in \Omega \setminus \Omega_{-n \cdot p}$, then in local charts we can write,
+    \[\omega = \sum_{k = m}^\infty c_k z^k dz, c_m \neq 0, m < n.\]
+    Then taking the residue gives us (note that $m+1 \leq n$), 
+    \[\operatorname{Res}(\omega, [0, \frac{1}{z^{m+1}}]) = \operatorname{Res}_0(\sum_{k = m}^{\infty} c_k z^{k-(m+1)} = \operatorname{Res}_0 (\frac{c_m}{z} + \text{ holomorphic }) = c_m \neq 0. \]
+    Hence we have shown that for any $\omega \notin \Omega_{-D}(X)$, we can pair it with something in $PP_D$ whose residue is non-zero.\\
+
+    For any $\omega \in \Omega_{-D}(X)$, clearly it can only give zero in residue pairing. Hence, the sequence is exact.
+\end{proof}
+
+
+\begin{lemma}
+    If $A_1 \to_{g_1} A_2 \to ... \to_{g_{k-1}} A_k$ is an exact sequence of vector spaces such that $(A_i^*)^* = A_i$, then
+    \[A^*_k \to_{g_{k-1}^T} A^*_{k-1} \to ... \to_{g_1^{T}} A_1^*,\]
+    (here $^T$ denotes taking the transpose).
+\end{lemma}
+
+From this Lemma, we obtain that
+\begin{proposition}
+    The following sequence is exact:
+    \[\mathcal{P} \mathcal{P}_D(X) \to \Omega(X)^* \to \Omega_{-D}(X)^* \to 0.\]
+\end{proposition}
+
+For any two exact sequences with an overlapping terms and functions, we can combine them to give
+\begin{theorem}
+    The following sequence is exact
+    % https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiXFxtYXRoY2Fse099KFgpIl0sWzIsMCwiXFxtYXRoY2Fse099X0QoWCkiXSxbMywwLCJcXG1hdGhjYWx7UH1cXG1hdGhjYWx7UH1fRChYKSJdLFs0LDAsIlxcT21lZ2FeKihYKSJdLFs1LDAsIlxcT21lZ2Ffey1EfV4qKFgpIl0sWzYsMCwiMCJdLFswLDFdLFsxLDJdLFsyLDNdLFszLDRdLFs0LDVdLFs1LDZdXQ==
+\[\begin{tikzcd}
+	0 & {\mathcal{O}(X)} & {\mathcal{O}_D(X)} & {\mathcal{P}\mathcal{P}_D(X)} & {\Omega^*(X)} & {\Omega_{-D}^*(X)} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+\end{theorem}
+
+Furthermore, we observe that the dimensions of each terms in the sequences are
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCIwIl0sWzEsMCwiMSJdLFsyLDAsIlxcZGltIFxcbWF0aGNhbHtPfV9EKFgpIl0sWzMsMCwiXFxkZWcoRCkiXSxbNCwwLCJnX1giXSxbNSwwLCJcXGRpbSBcXE9tZWdhX3stRH0oWCleKiJdLFs2LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XSxbNCw1XSxbNSw2XV0=
+\[\begin{tikzcd}
+	0 & 1 & {\dim \mathcal{O}_D(X)} & {\deg(D)} & {g_X} & {\dim \Omega_{-D}(X)^*} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+	\arrow[from=1-5, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd},\]
+where $g_X$ denotes the analytic genus (which we showed is equal to the topological genus).\\
+
+Taking the alternating sum of dimensions of an exact sequence is zero, hence
+\[0 = 1 - \dim \mathcal{O}_D + \deg D - g + \dim \Omega_{-D},\]
+rearranging terms gives us the following theorem.
+
+\begin{theorem}[Riemann-Roch Theorem for Positive Divisors]
+    For $D \geq 0$,
+    \[\dim \mathcal{O}_D = 1 - g + \deg D + \dim \Omega_{-D}.\]
+\end{theorem}
+
+Now we will work towards the Riemann-Roch Theorem for general divisors.
+
+\begin{definition}
+ If $D, D' \in \operatorname{Div}(X)$,  we say that $D \sim D'$ (\textbf{linearly equivalent}) if there exists $f \in M(X)$ such that
+ \[D - D' = (f) \in \operatorname{Prin}(X) \coloneqq = \{(f)\ |\ f \in M(X)\}.\]
+ Elements of $\operatorname{Prin}(X)$ are called \textbf{principal divisors}. Note that every principal divisors have degree $0$ by the Residue Theorem, but not every degree $0$ divisor is a principal divisor.
+\end{definition}
+
+\begin{lemma}
+For $g \in M(X)$ and $\omega_0 \in M^{(1)}(X)$, and $D \in \operatorname{Div}(X)$, we have \textbf{canonical isomorphisms}
+\[\mathcal{O}_D \cong \mathcal{O}_{(g)+D}, \Omega_D \cong \Omega_{(g)+D}, \Omega_D \cong \mathcal{O}_{(\omega_0) + D}.\]
+\end{lemma}
+
+\begin{proof}
+    We have that
+    \[f \in \mathcal{O}_D \iff (f) + D \geq 0 \iff (\frac{f}{g}) + (g) + D \geq 0 \iff \frac{f}{g} \in \mathcal{O}_{(g) + D}.\]
+    \[\omega \in \Omega_D \iff (\omega) + D \geq 0 \iff (\frac{\omega}{g}) + (g) + D \geq 0 \iff \frac{\omega}{g} \in \Omega_{(g)+D}.\]
+    Note that we also have 
+    \[\omega \in \Omega_D \iff (\omega) + D \geq 0 \iff (\omega/\omega_0) + (\omega_0) + D \geq 0 \iff \frac{\omega}{\omega_0} \in \mathcal{O}_{(\omega_0) + D}.\]
+\end{proof}
+
+\begin{lemma}
+    If $\omega_0, \omega_1 \in M^{(1)}(X) \setminus \{0\}$, then
+    \[(\omega_0) - (\omega_1) = \frac{\omega_0}{\omega_1} \in \operatorname{Prin}(X),\]
+    hence we have that $(\omega_0) \sim (\omega_1)$.\\
+    
+    This equivalence class of all non-trivial meromorphic one-forms is called the \textbf{canonical divisor [class]}.
+\end{lemma}
+
+\begin{proposition}[No Exotic Riemann Spheres]
+    If $X$ is a Riemann surface with genus $0$, then $X$ is isomorphic to $\hat{\Cbb}$.
+\end{proposition}
+
+\begin{proof}
+    If the genus $g(X) = 0$, then take $p \in X$, by the Riemann-Roch theorem for positive divisors
+    \[\dim \mathcal{O}_{1 \cdot p} = 1 - g(X) + \deg(1 \cdot p) + \dim \Omega_{-1 \cdot p} \geq 1 - 0 + 1 = 2,\]
+    where the last equality follows from ignoring $ \dim \Omega_{-1 \cdot p}$.\\
+    
+    Then because the dimension is at least $2$, there exists $f \in \mathcal{O}_{1 \cdot p} \setminus \mathcal{O}$ such that $f$ is a function $f: X \to \hat{\Cbb}$ sending $p \to \infty$ with multiplicity $1$. Hence, $\deg f = 1$ (recall the degree is the number of preimages). Hence $f: X \to \hat{\Cbb}$ is an isomorphism.
+\end{proof}
+
+
+\begin{proposition}
+    $M^{(1)}(X) \neq 0$, hence any compact Riemann surface has a canonical divisor.
+\end{proposition}
+
+\begin{proof}
+    If $X$ has genus $g = 0$, it is the Riemann sphere. In this case, we observe that $dz \in M(\hat{\Cbb})$ is a non-trivial Meromorphic $1$-form. Moreover, we observe that by working over charts,
+    \[(z \mapsto \frac{1}{z})^* dz = d(\frac{1}{z}) = \frac{-dz}{z^2}.\]
+    In particular, we see that $(dz) = 2 \cdot \infty$.\\
+
+    Now if $g > 0$, then 
+    \[0 < g = \dim \Omega(X) \leq \dim M^{(1)}(X),\]
+    because the meromorphic forms contains all the holomorphic forms.
+\end{proof}
+
+Now we give a restatement of the Riemann-Roch theorem.
+\begin{theorem}[Riemann-Roch Theorem]
+For a divisor $D$, 
+\[\dim \mathcal{O}_D = 1 - g + \deg F + \dim \Omega_{-D} \]
+\[= 1 - g + \deg D + \dim \Omega_{K - D},\]
+where $K = (\omega_0)$ denotes the canonical divisor.
+\end{theorem}
+
+Let $RR(D)$ denote ``Riemann-Roch for $D$", in other words $RR$ is a map $\operatorname{Div}(X) \to \text{Statements}$. Here's what we know so far:
+    \begin{enumerate}
+        \item $D \geq 0 \implies RR(D)$.
+        \item $D \sim D'$ and $RR(D)$ implies $RR(D')$.
+        \item $RR(D) \iff RR(K - D)$, where $K$ is the canonical divisor.
+    \end{enumerate}
+Let's take a moment to verify the third item.
+
+\begin{proof}[Proof of Item 3]
+    Using the second formulation, we have that for $D = 0$,
+    \[1 = 1 - g + \mathcal{O} + \dim \Omega \implies \dim \Omega = \dim \mathcal{O}_K = g.\]
+    When $D = K$, we have that
+    \[g = \dim \mathcal{O}_K = 1 - g + \deg K + \dim \mathcal{O}_{K-K} = 1 - g + \deg K + 1 = 2 - g + \deg K.\]
+    In particular, this means that
+    \[2g - 2 = \deg K.\]
+
+    Now assuming $RR(D)$, we have that
+    \[\dim \mathcal{O}_D = 1 - g + \deg D + \dim \mathcal{O}_{K-D}.\]
+    Assuming $RR(K-D)$, we have that
+    \[\dim \mathcal{O}_{K-D} = 1 - g + \deg(K-D) + \dim \mathcal{O}_D = 1 - g + (2g - 2) - \deg D + \dim \mathcal{O}_D\]
+    \[= g - 1 - \deg D + \dim \mathcal{O}_D.\]
+    Hence, the two statements are equivalent.
+\end{proof}
+
+\newpage
+\section{Lecture April 11th}
+
+\subsection{Finishing the Riemann-Roch Theorem}
+
+Last time, given a divisor $D$ on a compact Riemann surface $X$, we have the statement
+\[RR(D) = ``\dim \mathcal{O}_D = 1 - g + \deg D + \dim \mathcal{O}_{K-D}".\]
+From here we have proved the following three statements
+\begin{enumerate}
+    \item $D \geq 0$ implies $RR(D)$.
+    \item $D \sim D'$ and $RR(D)$ implies $RR(D')$.
+    \item $RR(D) \iff RR(K-D)$.
+\end{enumerate}
+
+Now we observe that
+\begin{align*}
+    \dim \mathcal{O}_D > 0 &\iff \exists f,\ (f) + D \geq 0\\
+    &\iff \exists D' \sim D, D' \geq 0 \tag*{Here $\sim$ means linear equivalence}
+\end{align*}
+Hence (1) and (2) together gives:
+\[\dim \mathcal{O}_D > 0 \implies RR(D).\]
+And (1), (2), and (3) together gives
+\[\dim \mathcal{O}_{K-D} > 0 \implies RR(K-D) \implies RR(D). \]
+
+Hence, the only case remaining is what if
+\[\dim \mathcal{O}_D = \dim \mathcal{O}_{K-D} = 0?\]
+
+Indeed, for any $D$ such that $\dim \mathcal{O}_D = \dim \mathcal{O}_{K-D} = 0$, we have that
+\[RR(D) = ``\dim \mathcal{O}_D = 1 - g + \deg D + \dim \mathcal{O}_{K-D}" = ``0 = 1- g + \deg D - 0" = ``\deg D = g - 1".\]
+
+\begin{theorem}[Riemann's Theorem]
+    For any divisor $D$ on $X$, we have that
+    \[\dim \mathcal{O}_D \geq 1 - g + \deg D.\]
+\end{theorem}
+
+\begin{proof}
+    Note that this follows from $RR(D)$ when $D \geq 0$. Now for a general $D$, we let $D = D_+ - D_-$ such that $D_+, D_- \geq 0$. In this case, we have that
+    \[\dim \mathcal{O}_{D_+ - D_-} \geq \dim \mathcal{O}_{D_+} - \deg D_-\]
+    as (we have shown previously in lecture) changing the divisor by a point changes its degree by at most $1$ and then use induction. Hence we have that
+    \[\dim \mathcal{O}_{D_+ - D_-} \geq \dim \mathcal{O}_{D_+} - \deg D_- \geq 1 - g + \deg D_+ - \deg D_- = 1 - g + \deg D.\]
+\end{proof}
+
+Now, in the case when $\dim \mathcal{O}_D = \dim \mathcal{O}_{K-D} = 0$, Riemann's Theorem tells us that
+\[0 = \dim \mathcal{O}_D \geq 1 - g + \deg D.\]
+On the other hand, we know that
+\[0 = \dim \mathcal{O}_{K-D} \geq 1 - g + \deg(K-D) = 1 - g + \deg K - \deg D = 1 - g + (2g-2) - \deg D = (g - 1) - \deg D.\]
+Hence we see that $\deg D \geq g-1$ and $g-1 \geq \deg D$, which concludes
+\[\deg D = g-1.\]
+\underline{\textbf{This concludes the proof of the Riemann-Roch theorem.}}
+
+\subsection{Applications of the Riemann-Roch Theorem and Gonality}
+
+\begin{theorem}
+    For $\deg D \geq g + 1$, we have that
+    \[\dim \mathcal{O}_D(X) \geq 2.\]
+    Hence there exists some element $f \in \mathcal{O}_D(X) \setminus \mathcal{O}(X)$. In this case, we have a holomorphic map $f: X \to \hat{\Cbb}$ such that $\deg(f) \leq \deg(D_+)$, where $D_+$ indicates the positive part of $D$ (ie. write $D = D_+ - D_-$ where $D_+$ and $D_-$ have disjoint support and are both positive)
+\end{theorem}
+
+\begin{proof}
+    The existence of $f$ is a direct application of Riemann's Theorem. Now we know that accounting for multiplicity, $\deg(f) = \# f^{-1}(\infty)$. Now we know that
+    \[\# f^{-1}(\infty) = \sum_{p \in X, \operatorname{ord}_p(f) < 0} -\ord_p(f) \leq \deg D_+.\]
+\end{proof}
+
+\begin{corollary}
+        As an application, there exists $f \in \mathcal{O}_{(g+1) \cdot p}(X) \setminus \mathcal{O}(X)$ such that $f: X \to \hat{\Cbb}$ has degree less than or equal to $g + 1$.
+\end{corollary}
+
+\begin{enumerate}
+    \item If $g = 0$, then $\deg f \leq 0 + 1 \leq 1$, which implies that $\deg f = 1$ (it can't have degree $0$), and hence $X \cong \hat{\Cbb}$.
+    \item If $g = 1$, then $\deg f \leq 1 + 1 \leq 2$, which implies $\deg f = 2$, which implies that $f: X \to \hat{\Cbb}$ is a branched cover of degree $2$.
+    \item If $g = 2$, we have that $\Omega(X)$ is generated by two one-forms $\omega_0, \omega_1$. Write $\Omega(X) = (\omega_0, \omega_1)$. We know that $\deg(\omega_0) = \deg(\omega_1) = 2g - 2 = 2$, and they are both holomorphic forms (and has no poles), hence $\omega_0$ and $\omega_1$ each have two zeros.\\
+
+    Now consider
+    \[(\frac{\omega_0}{\omega_1}) = (\omega_0) - (\omega_1).\]
+\begin{itemize}
+    \item If $(\omega_0) = (\omega_1)$, then $(\frac{\omega_0}{\omega_1}) = 0$, which implies $\frac{\omega_0}{\omega_1}$ is constant, and hence they are not basis (contradiction).
+    \item If $(\omega_0) - (\omega_1) = D_+ - D_-$ with $\deg D_+ = \deg D_- = 1$ (ie. they share only one common zero). This implies that $\deg \frac{\omega_0}{\omega_1} = 1$ (ie. it's a meromorphic function of degree $1$), which is impossible because it would give an isomorphism from $X$ to $\hat{\Cbb}$.
+    \item If $(\omega_0) - (\omega_1) = D_+ - D_-$ with $\deg D_+ = \deg D_- = 2$ (ie. their zero sets are disjoint). Hence, we have a degree $2$ map from $X \to \hat{\Cbb}$.
+\end{itemize}
+\end{enumerate}
+
+\begin{definition}
+    Let $X$ be a Riemann-surface. We define
+    \[\operatorname{gonality}(X) = \min\ \deg f: X \to \hat{\Cbb} \text{ that is non-constant}.\]
+\end{definition}
+
+We have shown the following:
+\begin{proposition}
+Let $X$ be a Riemann-surface,
+\begin{enumerate}
+    \item $\operatorname{gon}(X) = 1 \iff g = 0$.
+    \item If $g = 1, 2$, then $\operatorname{gon}(X) = 2$.
+    \item $\operatorname{gon}(X) \leq g + 1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+    In general you could in fact show that
+    \[\operatorname{gon}(X) \leq \lfloor \frac{g+3}{2} \rfloor.\]
+\end{remark}
+
+\subsection{Riemann-Hurwitz Theorem}
+
+\begin{theorem}[Riemann-Hurwitz Theorem]
+    If $f: X \to Y$ is a branched cover (doesn't even have to be holomorphic) of closed oriented surfaces, then 
+    \[\chi(X) = (\deg f) \chi(Y) - \operatorname{crit}(f),\]
+    where $\operatorname{crit}(f) = \sum_{c \in X\ \text{critical point}} (\deg_c f - 1)$, where $\deg_c f$ denotes the local degree of $f$ at $c$ (recall locally around $c$, we can write $f$ as a map $z \mapsto z^d$).
+\end{theorem}
+
+\begin{proof}
+    We first triangulate $Y$ with triangulation $\tau$ such that the critical values of $f$ are a subset of $\operatorname{vert}(\tau)$. Now let $S = f^*(\tau)$ be the pullback of the triangulation on $X$ (note that this isn't always a triangulation, but in this case, because we have a branched cover and critical values are sent to vertices, it will pullback to a triangulation).\\
+
+    In this case, we have that
+    \[f: \operatorname{faces}(S) \to \operatorname{faces}(\tau) \text{ and } f: \operatorname{edges}(S) \to \operatorname{edges}(\tau)\]
+    are $\deg(f)$-to-$1$. However, for $v \in \operatorname{vertex}(\tau)$, we have that
+    \[\sum_{f(\omega) = v} \deg_{\omega} f = \deg f.\]
+    In particular, this implies that
+    \[\# \{\omega\ |\ f(\omega) = v\} = (\deg f) - \sum_{f(\omega) = v} (\deg_{\omega} f - 1).\]
+    Taking the Euler characteristics on $X$ and $Y$ as alternating sum of number of vertices, edges, and faces.
+\end{proof}
+
+From here we obtain two quick corollaries.
+\begin{corollary}
+    If $g(X) = 1$, then we know $\chi(X) = 0$, and consider $f: X \to \hat{\Cbb}$ with degree $2$. Then the Riemann-Hurwitz theorem tells us that
+    \[0 = 2 \cdot 2 - \operatorname{crit}(f) \implies \operatorname{crit}(f) = 4.\]
+\end{corollary}
+
+\begin{corollary}
+    If $g(X) = 2$, then we know that $\chi(X) = -2$, and consider $f: X \to \hat{\Cbb}$ has degree $2$. Then the Riemann-Hurtwitz theorem gives us
+    \[-2 = 2 \cdot 2 - \operatorname{crit}(f) \implies \operatorname{crit}(f) = 6.\]
+\end{corollary}
+
+
+\subsection{Maps of $X$ into $\Pbb^N$}
+
+Given $f_0, ..., f_N \in M(X) - \{0\}$ (recall meromorphic functions on $X$ are given by $f_i: X \to \hat{\Cbb}$). We seek to construct a map
+\[F: X \to \Pbb^N, \text{ such that roughly } ``F(p) = [f_0(p): ... : f_N(p)]".\]
+
+\textbf{First Construction (Depends on Coordinate): }
+Indeed, we define $\mu(p) = \min_{i} \ord_p f_i \in \Zbb$. Look at the $f_i$'s in a coordinate $z: U \subseteq X \to \Cbb$ (where $p \in U$). In this case, we can decompose $f_i$ such that
+\[f_i(z) = z^{\mu(p)} g_i(z) \text{ and } z(p) = 0.\]
+where $g_i$ is holomorphic near $0$. In this case, there exists $i$ such that $g_i(0) \neq 0$ (where $i$ indicates the index with the biggest pole).\\
+
+In this case, we define $F$ locally around $p$, 
+\[F(p) \coloneqq [g_0(0), ..., g_N(0)].\]
+They glue together to a holomorphic map on all of $X$.\\
+
+\textbf{Second Construction (Coordinate Free): }
+\begin{itemize}
+    \item Note that in the first construction, $g_i(0) = 0 \iff \operatorname{ord}_p f_i > \mu(p)$.
+    \item Otherwise, we can choose $i_0$ such that $\ord_{p} f_{i_0} = \mu(p)$. Then
+    \[g_j(0) = \frac{f_j(p)}{f_{i_0}(p)} \in \Cbb. \]
+    (This is a complex number because the denominator has more vanishing power). This is well-defined up to scalars (which makes sense in a projective space).
+\end{itemize}
+
+\begin{theorem}
+    Suppose $\deg D \geq 2g + 1$, and $f_0, ..., f_N$ is a basis for $\mathcal{O}_D(X)$, then the map
+    \[F: X \to \Pbb^{N},\]
+    is an embedding of $X$ into $\Pbb^N$.
+\end{theorem}
+
+\newpage
+\section{Lecture April 16th}
+
+\subsection{Maps of $X$ into $\Pbb^N$}
+
+Recall that for $f_0, ..., f_N \in M(X) \setminus \{0\}$, we get a map
+\[F: p \mapsto [f_0(p): ...: f_N(p)] \in \Pbb^N\]
+that, after canceling out with multiplicities, is well-defined even if they vanish simultaneously at a point. Also, if we define $g_i = \sum_{j = 0}^N a_{ij} f_j$, then we can obtain a map $G$
+\[G: p \mapsto [g_0(p): ...: g_M(p)].\]
+
+In this case, we have a map
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIl0sWzEsMCwiXFxQYmJeTiJdLFsyLDAsIlxcUGJiXk0iXSxbMCwxLCJGIl0sWzAsMiwiRyIsMix7ImN1cnZlIjotNX1dLFsxLDIsIlxcZXhpc3RzIEEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	X & {\Pbb^N} & {\Pbb^M}
+	\arrow["F", from=1-1, to=1-2]
+	\arrow["G"', curve={height=-30pt}, from=1-1, to=1-3]
+	\arrow["{\exists \Pbb(A)}", dashed, from=1-2, to=1-3]
+\end{tikzcd}\]
+where we have that
+\[\Pbb(A)([x_0, ..., x_N]) = [\sum_{j = 0}^N a_{0j} x_j: ... : \sum_{j = 0}^N a_{Mj} x_j],\]
+we can write the coefficients in $A$ as a $N+1 \times N+1$ complex matrix. Note that in this case we have that
+\[A \in GL_{N+1}(\Cbb) \iff \Pbb(A) \in \Aut(\Pbb^n).\]
+
+\begin{remark}
+Note that in light of this construction, any $N+1$-dimensional linear subspace $L \subseteq M(X)$ induces a map
+\[F_L: X \to \Pbb^N,\]
+up to the automorphisms of $\Pbb^N$.    
+\end{remark}
+
+\begin{question}
+    Is every finite-dimensional $\Cbb$-linear subspace of $M(X)$ equal to $\mathcal{O}_D$ for some divisor $D$ on $X$? (Probably not).
+\end{question}
+
+\begin{theorem}
+    Let $X$ be a compact Riemann surface and $D \in \operatorname{Div}(X)$ (a divisor on $X$), if $\deg D \geq 2g + 1$, then the embedding induced by
+    \[F_{\mathcal{O}_D(X)}:  X \to \Pbb^{\dim \mathcal{O}(D) - 1}\]
+    given by taking a basis of $\mathcal{O}_D(X)$ is an injective immersion.
+\end{theorem}
+By an injective immersion, we mean the map between complex tangent spaces is injective:
+    \[T^{\Cbb}_p X \to T^{\Cbb}_p \Pbb^N.\]
+    This actually turns out to be equivalent to being an injective immersion by viewing them as smooth manifolds. This is because, since we already know $F_{\mathcal{O}_D(X)}$ is holomorphic, we may find a map
+    \[X \to \Pbb^N \to_{h_p} \Pbb^1,\]
+    such that on tangent spaces we have the coordinate-wise derivative 
+    \[DF: T_p^\Cbb(X) \to T^\Cbb_p(\Pbb^N) \to T^\Cbb_p(\Pbb^1),\]
+    here we see $DF$ is full-rank if and only if $T^{\Cbb}_p X \to T^{\Cbb}_p \Pbb^N$ is full-rank. A complex matrix is also full rank if and only if its is full rank as a real matrix with twice the dimensions.
+
+\begin{definition}
+    A divisor $D$ is \textbf{globally generated} if for all $p \in X$, there exists $f \in \mathcal{O}_D(X)$ (note that $f$ depends on $p$) such that
+    \[\operatorname{ord}_p f + D(p) = 0.\]
+\end{definition}
+
+\begin{example}
+    Let $D = p$ on $X$ with the genus $g(X) > 0$, then $D$ is not globally generated.
+\end{example}
+
+\begin{lemma}
+    If $\deg D \geq 2g$, then $D$ is indeed globally generated.
+\end{lemma}
+
+\begin{proof}
+    By the Riemann-Roch theorem, we have that
+    \[\dim \mathcal{O}_D = 1 - g + \deg D + \dim \mathcal{O}_{K-D}.\]
+    Note that $K$ has degree $2g - 2$ and $D$ has degree $\geq 2g$, so $K-D$ has degree less than $0$. Note that in general for any divisor $E$ such that $\deg E < 0$, we have that $\deg ((f) + E) = \deg E < 0$ (principal divisor has degree $0$), and hence $\mathcal{O}_{K-D}$ has zero dimensions. Thus, we have that $\dim \mathcal{O}_{K-D} = 0$.\\
+
+    Now we have that
+    \[\dim \mathcal{O}_D = 1 - g + \deg D.\]
+    We take a point $p \in X$, and we let $D' = D - p$, then by the Riemann-Roch theorem
+    \[\dim \mathcal{O}_{D - p} = 1 - g + \deg (D') + \dim \mathcal{O}_{K-D'}.\]
+    By the same reasoning as before $\dim \mathcal{O}_{K-D'} = 0$. We also have that $\deg D' = \deg D - 1$. Now we can take any $f \in \mathcal{O}_D - \mathcal{O}_{D - p}$ (which exists by dimension calculations above), which will satisfy the condition.
+\end{proof}
+
+Now we will use the lemma to prove the theorem.
+\begin{proof}[Proof of Theorem]
+    It suffices to prove that the composition is an injective immersion:
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIl0sWzEsMCwiXFxQYmJee1xcZGltIFxcbWF0aGNhbHtPfShEKSAtIDF9Il0sWzIsMCwiXFxQYmJeMSJdLFsxLDIsIkEiXSxbMCwxLCJGX3tcXG1hdGhjYWx7T31fRChYKX0iLDJdLFswLDIsIkciLDIseyJjdXJ2ZSI6LTN9XV0=
+\[\begin{tikzcd}
+	X & {\Pbb^{\dim \mathcal{O}(D) - 1}} & {\Pbb^1}
+	\arrow["{F_{\mathcal{O}_D(X)}}"', from=1-1, to=1-2]
+	\arrow["G"', curve={height=-18pt}, from=1-1, to=1-3]
+	\arrow["A", from=1-2, to=1-3]
+\end{tikzcd}\]
+where $G$ is induced by two meromorphic functions on $X$ (which will be a linear combination of the basis).\\
+
+    Take $p, q \in X$ such that $p \neq q$. By the lemma, we can find $f_1 \in \mathcal{O}_D(X)$ with $\ord_p f_1 + D(p) = 0$. Similarly, we can find $f_0 \in \mathcal{O}_{D-p}(X)$ with $\ord_q f_0 + D(q) = 0$ (because $\deg D - p \geq 2g$ and $(D - p)(q) = D(q)$ as $p, q$ are distinct points).\\
+
+    Then, $[f_0: f_1](p) = [0: 1]$, because $f_1$ has a strong pole at $p$ than $f_0$, and $[f_0: f_1](q) = [1: a]$ with $a \in \Cbb$, because $f_1$'s pole at $q$ is not strictly stronger than $f_0$. Hence, the map is injective.\\
+
+    Now to show that $F$ is an immersion. We take $p \in X$ and find $f_0$ such that $\ord_{p} f_0 + D(p) = 0$. We use this to find $f_1$ such that $\ord_p f_1 + (D(p) - 1) = 0$. We construct a map
+    \[g: X \to \Pbb^1, z \mapsto [f_0(z), f_1(z)] = \frac{f_1(z)}{f_0(z)} \in \hat{\Cbb}.\]
+    Note that $g(p) = 0$ and $\ord_p g = 1$ by construction. This means that $p$ is a simple root of $g$, so $g'(p) \neq 0$. Hence, we have produces an immersion as derivative is non-zero.
+\end{proof}
+
+\begin{remark}
+    If a manifold $M$ is compact and $f: M \to N$ is an injective immersion between smooth manifolds, then $f: M \to N$ is an embedding. Our theorem here implies $X$ admits a holomorphic embedding into $\Pbb^{\dim \mathcal{O}(D) - 1}$.
+\end{remark}
+
+\begin{exercise}
+    Given compact Riemann surface $X \subseteq \Pbb^N$ and consider the ``generic map" $h: \Pbb^N \to \Pbb^3$. This will be an injective immersion on $X$.
+\end{exercise}
+
+Finally we will state the following fact but not prove it.
+\begin{definition}[Adjunction Form]
+    If $X$ is a degree $d$ curve in $\Pbb^2$ (a smooth algebraic curve cut out by an equation of degree $d$), then
+    \[g_X = \frac{(d-1)(d-2)}{2}.\]
+    This means that not all compact Riemann surfaces can be embedded into $\Pbb^2$.
+\end{definition}
+
+\subsection{Abel's Theorem}
+
+\begin{theorem}[Abel's Theorem]
+    For $X$ a compact Riemann surface with $D \in \operatorname{Div}_0(X)$ (meaning that $\deg D = 0$), then
+    \[\exists f \in M(X),\ (f) = D \iff \exists\ \gamma \in C_1(X) \text{ with } \partial \gamma = D \text{ and } \int_\gamma \omega = 0\ forall \omega \in \Omega(X). \]
+    Here $C_1(X)$ denotes singular $1$-chains.
+\end{theorem}
+
+\begin{remark}
+    If $X = \hat{\Cbb}$ then $\Omega(X) = 0$, so there is not requirement for this to hold. Hence, we have that
+    \[\exists f \in M(X),\ (f) = D \iff  \exists\ \gamma \in C_1(X) \text{ with } \partial \gamma = D,\]
+    where the RHS is always satisfied. Hence, every degree $0$ divisor on $X$ is principal.
+\end{remark}
+
+\begin{proof}
+    For the forward direction, we can think of $f \in M(X)$ as a function $f: X \to \hat{\Cbb}$. Note that we have that $D = f^*(0 - \infty)$ (where $0 - \infty \in \operatorname{Div}(\hat{\Cbb})$, and by the pullback we mean on a general divisor $E$,  $f^*(E)(p) \coloneqq (\deg_p f) E(f(p))$.).\\
+
+    Now take any path $\eta$ in $\hat{\Cbb}$ with $\partial \eta = 0 - \infty$ and $\eta \cap \operatorname{CritVal}(f) = \emptyset$. Now we set $\gamma = f^*(\eta)$ (we take all possible lifts in the pullback). Then for all $\omega \in \Omega(X)$, we have that
+    \[\int_\gamma \omega = \int_{\eta} f_*(\omega) = \int_\eta 0 = 0,\]
+    where $f_*(\omega) = 0$ because it is an element of $\Omega(\hat{\Cbb})$.\\
+
+    To understand the proof above more thorughly. Note that in general if $X, Y$ are compact Riemann surfaces with a map $f: X \to Y$. Given $\omega \in \Omega(X)$, we can construct $f_*(\omega) \in \Omega(Y)$ as follows:
+    \begin{itemize}
+        \item Recall that $f$ is a locally branched covering map.
+        \item If $f$ is a covering map, then we just define
+        \[f_* \omega(p) = \sum_{q \in f^{-1}(p)} (f^{-1}_q)^* \omega(q),\]
+        where $f_q$ is the local diffeomorphism around $q$ to $p$ given by $f$. Then this can be verified to be holomorphic.
+        \item What if $f$ has branched points? We can find charts such that the map $f: q \mapsto p$ has charts so that $f(z) = z^n$ locally.\\
+
+        In this case, given $w \in U_p$ and $z \in U_q$, $\alpha \in \Omega(X)$, we define
+        \[(f_* \alpha)(w) = \sum_{z \text{ s.t. } z^n = w} (z \mapsto z^\frac{1}{n})^* \alpha(z).\]
+        The claim is that this is equal to zero due to cancellation. One way is to directly calculate this using power series, the other way is to use L2-norms.
+    \end{itemize}
+\end{proof}
+
 
 \end{document}
