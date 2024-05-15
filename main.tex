@@ -278,14 +278,49 @@ is a holomorphic map.
 \end{remark}
 
 \begin{proof}[Proof of the Theorem]
-    Let $x \in X$, let $(U, V)$ be the pair of open sets in $X$ and $Y$ respectively under the local homeomorphism hypothesis. Without loss of generality (taking intersection with charts of $Y$), we can assume that there's a chart $\psi: V \to \Cbb$, then we define a map $\phi: U \to \Cbb$ such that
-    \[\phi = \psi \circ f,\]
-    then it's a routine exercise to verify that the charts on $X$ gives it a Riemannian surface structure (since $X$ is already connected and Hausdorff), and that $f$ is holomorphic.\\
-    
-    The only issue with this proof is that we DID NOT assume that $X$ is second countable. Now it is a very deep theorem (as we said before) that all the other conditions imply that $X$ is second countable, but that's a very big result.\\
+      Let $x \in X$, let $(U_x, V_x)$ be the pair of open sets in $X$ and $Y$ respectively under the local homeomorphism hypothesis. Without loss of generality (by taking intersection with charts of $Y$ if necessary), we can assume that there's a holomorphic chart $\psi_x: V_x \to \Cbb$, then we define a map $\phi_x: U_x \to \Cbb$ such that
+    \[\phi_x = \psi_x \circ f.\]
+    Now we claim that the collection of charts $\{(U_x, \phi_x)\}$ gives a Riemann surface structure on $X$. Indeed, we already know that $X$ is connected, Hausdorff, and \textbf{SECOND COUNTABLE}, so it remains for us to show the axioms:
+    \begin{itemize}
+        \item The collection of $U_x$ forms an open cover of $X$.
+        \item For each $x$, $\phi_x: U_x \to \Cbb$ is a homeomorphism onto its image in $\Cbb$ and its image is open.
+        \item For all $\alpha$ and $\beta$, $\phi_\beta \circ \phi_\alpha^{-1}$ is holomorphic where-ever it is defined.
+    \end{itemize}
+    Since the charts we are looking at here is taken to be open sets $U_x$ for each $x \in X$, clearly they form an open cover of $X$. Furthermore, since $f$ maps $U_x$ homeomorphically to $V_x$ and $\psi_x$ maps $V_x$ homeomorphically into an open subset of $\Cbb$, we have that $\phi_x$ maps $U_x$ homeomorphically into $\Cbb$ with open image.\\
 
-    For uniqueness, use the fact that $f$ is a local homeomorphism to try to construct an identity map on $X$ that is holomorphic.
+    Finally, for all $z \in \Cbb$ where $\varphi_\beta \circ \varphi_\alpha^{-1}$ is defined. We have that
+    \begin{align*}
+        \phi_\beta \circ \phi_\alpha^{-1}(z) &= \phi_\beta \circ (\psi_\alpha \circ f)^{-1}(z)\\
+        &= \phi_\beta \circ f^{-1} \circ \psi_\alpha^{-1}(z) \tag*{Inverses are well-defined in the local sense}\\
+        &= \psi_\beta \circ f \circ f^{-1} \circ \psi_\alpha^{-1}(z)\\
+        &= \psi_\beta \circ \psi_\alpha^{-1}(z),
+    \end{align*}
+    where we know $\psi_\beta \circ \psi_\alpha^{-1}$ is holomorphci since $Y$ is a Riemann surface.\\
+
+    Now we check that the map $f: X \to Y$ is holomorphic with respect to the charts. First of all, we know that the charts on $Y$ are compatible with that of $V_x$, we have that
+    \begin{align*}
+      \psi_x \circ f \circ \varphi_x^{-1} &= \psi_y \circ f \circ \varphi_x^{-1} \\
+      &= \psi_x \circ f \circ (f^{-1} \circ \psi_x^{-1})\\
+      &= \operatorname{id},
+    \end{align*}
+    which we see is clearly holomorphic.\\
+
+    Finally, for uniqueness, suppose $(S_x, \gamma_x)$ is another collection of charts for a Riemann surface structure on $X$ such that $f: (X, S_x) \to Y$ is holomorphic. Then we have that
+    \begin{align*}
+        \phi_x \circ id \circ \gamma_x^{-1} &= \psi_x \circ f \circ \gamma_x^{-1},
+    \end{align*}
+    where we know that the RHS is holomorphic by definition of $(S_x, \gamma_x)$. This means that the identity map is holomorphic with respect to $U_x, \phi_x$ and $S_x, \gamma_x$, so the Riemann surface structure is unique.
 \end{proof}
+
+% \begin{proof}[Proof of the Theorem]
+%     Let $x \in X$, let $(U, V)$ be the pair of open sets in $X$ and $Y$ respectively under the local homeomorphism hypothesis. Without loss of generality (taking intersection with charts of $Y$), we can assume that there's a chart $\psi: V \to \Cbb$, then we define a map $\phi: U \to \Cbb$ such that
+%     \[\phi = \psi \circ f,\]
+%     then it's a routine exercise to verify that the charts on $X$ gives it a Riemannian surface structure (since $X$ is already connected and Hausdorff), and that $f$ is holomorphic.\\
+    
+%     The only issue with this proof is that we DID NOT assume that $X$ is second countable. Now it is a very deep theorem (as we said before) that all the other conditions imply that $X$ is second countable, but that's a very big result.\\
+
+%     For uniqueness, use the fact that $f$ is a local homeomorphism to try to construct an identity map on $X$ that is holomorphic.
+% \end{proof}
 
 \begin{exercise}[Student is encouraged to do this...]
     Prove $X$ has holomorphic overlaps and $f: X \to Y$ is holomorphic.
@@ -325,6 +360,20 @@ Here's another topological fact
 \begin{exercise}
     Let $g: X \to Y$ be a proper local homeomorphism between surfaces, then $g$ is a finite-sheeted cover.
 \end{exercise}
+
+\begin{proof}[Proof of Exercise]
+   Note that since $X$ is a surface (manifold), it is a locally compact and Hausdorff topological space. For any $y \in Y$, since $g$ is proper, $g^{-1}(y)$ is a compact subset of $X$. Furthermore, since $g$ is a local homeomorphism, we have that $g^{-1}(y)$ is a discrete subspace of $X$.\\
+
+   A compact discrete topological space is finite, hence $g$ has finite fibers over $y$. It is well-known in MATH 2410 that the degree of a covering map is well-defined by counting the number of fibers over a particular point, so it suffices for us to show that $g$ is a covering map now.\\
+   
+   Since $X$ itself is Hausdorff, a compact subspace of $X$ is closed, so $g^{-1}(y)$ is a closed subspace in $X$. Write $g^{-1}(y) = \{x_1, ..., x_n\}$, we can choose pairwise disjoint neighborhoods $U_i$ over $x_i$ since $X$ is Hausdorff. By taking intersections with the open neighborhoods given by the local homeomorphism $g$ if necessary, we also have that $g$ maps each $U_i$ homeomorphically onto some neighborhood $V_i$ of $y$.\\
+
+   Now observe that a proper map between two locally compact Hausdorff space is closed. Indeed, for any closed set $S \subseteq X$, we wish to show that $Y - f(S)$ is open. Indeed, take $z \in Y - f(S)$, since $Y$ is locally compact and Hausdorff, there exists an open neighborhood $U_z$ containing $z$ whose closure is compact. We claim that $U_z - f(S)$ is actually an open set in $Y$, which will show that $z$ is contained in an open neighborhood disjoint from $f(S)$ and that $f(S)$ is closed.\\
+   
+   Indeed, $U_z - f(S) = U_z - (f(S) \cap U_z)$. Since $f(S) \cap U_z \subseteq f(S) \cap \overline{U_z}$, we can write $U_z - f(S) = U_z - (f(S) \cap \overline{U_z})$. We seek to investigate what happens at $f(S) \cap \overline{U_z}$. Indeed, since $f$ is proper, we know that $f^{-1}(\overline{U_z})$ is a compact subspace of $X$. So in particular, $f(S) \cap \overline{U_z}) = f(S \cap f^{-1}(\overline{U_z}))$ is the continuous image of a compact set and is hence compact. Since $Y$ is Hausdorff, we have that $f(S) \cap \overline{U_z})$ is a closed subset. Thus, we have that $U_z - f(S) \cap \overline{U_z}$ is open (since it's an open set minus a closed set).\\
+
+   Thus, $g: X \to Y$ is a closed map. Finally, consider $S = X - \bigcup_{i = 1}^n U_i$, which is a closed set in $X$. Then $f(S)$ is closed in $Y$, and take $V = \bigcap_{i = 1}^n V_i - f(S)$, which is an open set containing $y$. Finally $f^{-1}(V)$ will be the disjoint union of $U_i \cap f^{-1}(V)$ which is mapped homeomorphically back to $V$.
+\end{proof}
 
 \begin{proof}[Proof of Lemma B]
     Take $h_V$ with $h_V(f(x)) = 0$ (by a Mobius transformation), then we lift $h_V \circ f$ by $z \mapsto z^n$ where $n = \operatorname{deg}(f)$ on $U - \{x\}$. So $h_V \circ f$ and $(z \mapsto z^n)$ are both covering maps that have the same image (in terms of fundamental groups), so from covering space theory we can lift $h_V \circ f$ to give a covering map $h_U: U \to \mathbb{D}$ that makes the diagram commute:
@@ -594,6 +643,8 @@ Here's an example of how $(2)$ could occur:
 \newpage
 \section{Lecture Ferbuary 15th}
 
+\subsection{Asymptotic and Critical Values}
+
 Recall from last lecture, we defined that
 \begin{definition}
     Suppose $f: X \to Y$ is holomorphic, then $q \in Y$ is an \textbf{asymptotic value} of $f$ if there exists $\alpha: [0, \infty)$ continuous and proper, such that
@@ -634,6 +685,26 @@ The example above combined with the theorem we mentioned last lecture shows that
 \begin{exercise}
     Find a holomorphic function $f: \Cbb \to \Cbb$, such that $f$ is surjective and $0$ is an asymptotic value.
 \end{exercise}
+
+\begin{proof}[Proof of Exercise]
+Consider the function $f(z) = z e^{z}$. This is an entire function as it is the product of two entire functions. We claim that $f(z)$ is surjective onto $\Cbb$.\\
+
+We first observe that the only root of $f(z)$ is $z = 0$. Indeed, for any $z \neq 0$, $e^z$ and $z$ are both non-zero, so $f(z) = 0$ if and only if $z = 0$. Furthermore, $z = 0$ is a simply zero. Indeed,
+\[f'(z) = e^z + z e^z \text{ so } f'(0) = 1 + 0 \neq 0.\]
+
+Now we note that $f(z)$ clearly has finite order. Now suppose $f(z)$ is not surjective, then choose $p \in \Cbb$ not in the image of $f(z)$, then $f(z) - p$ is the difference of two entire functions and is thus entire. Furthermore, since $f(z) \neq p$ for all $z \in \Cbb$, we see that $f(z) - p$ defines a map $\Cbb \to \Cbb - \{0\}$.
+
+$f(z) - p$ still has finite order, and hence by the Hadamard Factorization Theorem in complex analysis, we know there exists a non-zero polynomial $g(z)$ such that
+\[f(z) - p = e^{g(z)}.\]
+
+Now, we observe that $z = 0$ is the only value in $\Cbb$ where $f(z) - p = 0 - p = -p \neq 0$. On the other hand, since $g(z)$ is a non-zero polynomial, it is surjective onto $\Cbb$. Write $g(z) = w$, since $-p \neq 0$, we know that $e^{w}$ can take the value onto $-p$ infinitely many times by Euler's identity. Hence, we have a contradiction.\\
+
+Thus, we conclude that $f(z) = z e^{z}$ is an surjective entire function onto $\Cbb$.\\
+
+Now we observe that by taking the path $\alpha: [0, \infty) \to \Cbb$ given by $\alpha(t) = -t$, $\alpha$ is continuous and proper. Furthermore, we have that
+\[\lim_{t \to \infty} f(\alpha(t)) = \lim_{x \to -\infty} x e^{x} = 0.\]
+Hence, $0$ is an asymptotic value of $f$.
+\end{proof}
 
 More generally, suppose $F: U \subseteq \Cbb^2 \to \Cbb$ is a holomorphic function (for example $F$ could be a complex polynomial in two variables), then we look at the connected components of 
 \[V(F) \coloneqq \{(z, w) \ |\ F(z, w) = 0\}.\]
@@ -1236,7 +1307,7 @@ The paragraph above implies the following fact - Let $F \in D(U)^*$ is a distrib
 (Here, $\mathbb{D}_r$ happens to be a disk of radius $r$ contained in $U$).\\
 
 Here's an illustrative picture of what is happening
-\[\]
+\[\includegraphics[width=0.3\textwidth]{Figures/lec11-1.png}\]
 
 \subsection{Proof of Weyl's Lemma}
 
@@ -1514,7 +1585,7 @@ The following follows clearly from our discussion of $d$ above:
 
 \begin{question}
     Does the following hold -  For a general $X$ (not necessarily compact), for $\alpha \in \mathcal{D}^{0, 1}(X)$,
-    \[\exists f \in \mathcal{D}^(X), \overline{\partial} f = \alpha \iff \forall \omega \in \Omega^1(X), \int_X \alpha \wedge \omega = 0. \]
+    \[\exists f \in \mathcal{D}(X), \overline{\partial} f = \alpha \iff \forall \omega \in \Omega^1(X), \int_X \alpha \wedge \omega = 0. \]
 \end{question}
 
 \begin{remark}
@@ -1687,6 +1758,183 @@ From the perspective of this Hermitation inner product, the equation $\int \omeg
 
 \newpage
 \section{Lecture March 21st}
+
+\subsection{Primer on Hodge Theory}
+Recall we have previously constructed the $\partial$ and $\overline{\partial}$ operators and spaces $\mathcal{E}(X), \mathcal{E}^{(1)}(X) = \mathcal{E}^{1, 0} \oplus \mathcal{E}^{0, 1}, $ and $\mathcal{E}^{(2)}(X)$. Their relationship may be drawn as the following four-way splitting ``diamond".
+% https://q.uiver.app/#q=WzAsOSxbMiwzLCJcXG1hdGhjYWx7RX0iXSxbMSwyLCJcXG1hdGhjYWx7RX1eezEsIDB9Il0sWzMsMiwiXFxtYXRoY2Fse0V9XnswLCAxfSJdLFs0LDIsInYgXFxvdmVybGluZXtken0iXSxbMCwyLCJ1IGR6Il0sWzAsMSwiMCJdLFsyLDEsIlxcbWF0aGNhbHtFfV57KDIpfSJdLFs0LDEsIjAiXSxbMywwLCJ3IFxcb3ZlcmxpbmV7ZHp9IFxcd2VkZ2UgZHoiXSxbMCwxLCJcXHBhcnRpYWwiXSxbMCwyLCJcXG92ZXJsaW5le1xccGFydGlhbH0iLDJdLFsxLDUsIlxccGFydGlhbCJdLFsxLDYsIlxcb3ZlcmxpbmV7XFxwYXJ0aWFsfSJdLFsyLDYsIlxccGFydGlhbCIsMl0sWzIsNywiXFxvdmVybGluZXtcXHBhcnRpYWx9IiwyXV0=
+\[\begin{tikzcd}
+	&&& {w \overline{dz} \wedge dz} \\
+	0 && {\mathcal{E}^{(2)}} && 0 \\
+	{u dz} & {\mathcal{E}^{1, 0}} && {\mathcal{E}^{0, 1}} & {v \overline{dz}} \\
+	&& {\mathcal{E}}
+	\arrow["\partial", from=3-2, to=2-1]
+	\arrow["{\overline{\partial}}", from=3-2, to=2-3]
+	\arrow["\partial"', from=3-4, to=2-3]
+	\arrow["{\overline{\partial}}"', from=3-4, to=2-5]
+	\arrow["\partial", from=4-3, to=3-2]
+	\arrow["{\overline{\partial}}"', from=4-3, to=3-4]
+\end{tikzcd}\]
+
+Within each complex forms, we may also find the subspace of real-valued forms. Indeed,
+\begin{enumerate}
+    \item Write $\Lambda^2 \subseteq \mathcal{E}^{(2)}$ as the subspace of real two-forms. Locally, they are of the form $R dx dy$.
+    \item Write $\Lambda^1 \subseteq \mathcal{E}^{(1)}$ as the subspace of real one-forms. Locally, they are of the form $P dx + Q dy$.
+    \item Write $C^\infty = \Lambda^0 \subseteq \mathcal{E}$ as the subspace of real zero forms (real-valued smooth functions).
+\end{enumerate}
+
+Given $f \in \Lambda^0$, we observe that locally,
+\[df = \partial_x f dx + \partial_y f dy = \partial_z f dz + \partial \overline{z} f d\overline{z} = \partial f + \overline{\partial} f.\]
+Given $u dz + v \overline{dz}$ a one-form, we also have that locally 
+\[d(udz + v \overline{dz}) = \partial_{\overline{z}} u d\overline{z} \wedge dz + \partial_z v dz \wedge \overline{dz},\]
+where $\overline{\partial}(udz + v \overline{dz}) = \partial_{\overline{z}} u d\overline{z} \wedge dz$ and $\partial(udz + v \overline{dz}) = \partial_z v dz \wedge \overline{dz}$.
+
+\begin{exercise}
+    Show that $d$ acting on $\Lambda^1$ is coordinate-independent.
+\end{exercise}
+
+From these two observations above, we have that locally
+\begin{align*}
+    \overline{\partial}(\partial f) &= \overline{\partial} (\partial_z d dz)\\
+    &= \partial_{\overline{z}} \partial_z f \overline{dz} \wedge dz\\
+    &= (\partial_x + i \partial_y) (\partial x - i \partial_y) f \overline{dz} \wedge dz\\
+    &= (\partial^2_x + \partial^2_y) f \overline{dz} \wedge dz.\\
+    &= (\Delta f) f \overline{dz} \wedge dz.
+\end{align*}
+Hence we see that any element of $\ker(\overline{\partial} \circ \partial)$ would be a harmonic function. Conversely, any harmonic function clearly is an element of $\ker(\overline{\partial} \circ \partial)$. Finally, we also note that
+\[\mathcal{E}^{0, 1} = \overline{\Omega}(X) \oplus \overline{\partial} \mathcal{E}.\]
+
+\subsection{Hodge Star Operator}
+
+\begin{definition}
+  On $\Rbb^2$, there is a natural inner product on the cotangent space given by
+  \begin{itemize}
+      \item $\langle dx, dx \rangle = \langle dy, dy \rangle = 1$.
+      \item $\langle dx, dy \rangle = \langle dy, dx \rangle = 0$.
+  \end{itemize}
+  Let $\alpha, \beta \in \Lambda^1(U)$ for $U \subseteq \Rbb^2$, we define the \textbf{Hodge star operator} $\star: \Lambda^1 \to \Lambda^{1}$ (more generally it would be from $\Lambda^k \to \Lambda^{n-k}$) as an operator satisfying
+  \[\alpha \wedge \star \beta = \langle \alpha, \beta \rangle dx dy.\]
+\end{definition}
+
+Concretely, if we work out the consequences of the equation $\star$ satisfies. We can see that
+\begin{enumerate}
+    \item $dx \wedge \star dx = dx \wedge dy$, so we define $\star dx = dy$.
+    \item $dy \wedge \star dy = dx \wedge dy$, so we define $\star dy = -dx$.
+    \item From these two, we can see that
+    \[\star (A dx + B dy) = A dy - B dx.\]
+\end{enumerate}
+
+\begin{definition}
+    We can extend the Hodge star operator $\star$ to $\mathcal{E}^{(1)}$ by making it ``complex linear". Specifically, this means that we define
+    \[\star dz = \star (dx + idy) = dy - i dx = - i dz. \]
+    \[\star \overline{dz} = \star (dx - idy) = dy + idx = i \overline{dz}.\]
+    By analogy, for any $\alpha \in \mathcal{E}^{(1, 0)}(X)$, we have
+    \[\star \alpha = -i \alpha.\]
+    For any $\alpha \in \mathcal{E}^{(0, 1)}(X)$, we have
+    \[\star \alpha = i \alpha.\]
+    We can use this to define a \textbf{Hermitian Inner Product} given by
+    \[\langle \alpha, \beta \rangle \coloneqq \int_X \alpha \wedge \overline{\star \beta},\]
+    which one can show to be independent of chart.
+\end{definition}
+
+As an example, we can check that
+\[\langle P dx + Q dy, R dx + S dy \rangle = \int (P \overline{R} + Q \overline{S}) dx dy.\]
+
+The Hodge star operator is relevant to our discussions as follows. 
+\begin{proposition}
+    The splitting 
+    \[\mathcal{E}^{(1)} = \mathcal{E}^{0, 1} \oplus \mathcal{E}^{1, 0},\]
+with $\mathcal{E}^{0, 1} = \overline{\Omega} \oplus \overline{\partial} \mathcal{E}$ and $\mathcal{E}^{1, 0} = \Omega \oplus \partial \mathcal{E}$, is orthogonal with respect to the Hermitian inner product defined.
+\end{proposition}
+
+\begin{proof}
+Take $\alpha \in \mathcal{E}^{0, 1}$ and $\beta \in \mathcal{E}^{1, 0}$. Locally we can write $\alpha = fdz$ and $\beta = g \overline{dz}$. Then we have that
+\[\alpha \wedge \overline{\star \beta} = f dz \wedge \overline{i g \overline{dz}} = - i f \overline{g} dz \wedge dz = 0.\]
+\end{proof}
+
+The $\overline{\partial}$-criterion also gives us the following proposition relating the Hermitian inner product.
+\begin{proposition}
+    Let $\alpha \in \mathcal{E}^{0, 1}$, the following are equivalent.
+    \begin{enumerate}
+        \item $\langle \alpha, \overline{\omega} \rangle = 0$ for all $\overline{\omega} \in \overline{\Omega}$.
+        \item $\int_X \alpha \wedge \omega = 0$ for all $\omega \in \Omega$.
+        \item There exists some $f$ such that $\alpha = \overline{\partial f}$.\\
+    \end{enumerate}
+\end{proposition}
+
+\subsection{The Hodge Theorem}
+
+Let $\Lambda^k$ be the real-valued smooth $k$-forms and $d: \Lambda^k \to \Lambda^{k+1}$ be the exterior derivative.
+\begin{definition}
+    The \textbf{De Rham cohomology} of $X$ is defined as
+    \[H^k_{DR}(X0 \coloneqq \frac{\ker(d: \Lambda^k \to \Lambda^{k+1})}{\operatorname{im}(d: \Lambda^{k-1} \to \Lambda^k)} = \frac{Z^k}{B^k} = \frac{\text{``closed $k$-forms"}}{\text{``exact $k$-forms"}}.\]
+    It is a well-known fact (De Rham's Theorem) that the De Rham cohomology is isomorphic to singular cohomology with real coefficients, but we won't be needing it here.
+\end{definition}
+
+In the case where $X$ is a surface. If $\delta: \Delta_2 \to X$ is a smooth singular \mattie{oxymoron, get it, haha} $2$-simplex in $X$ and $\alpha \in \Lambda^1(X)$, we have that
+\[\int_{\Delta_2} d(\delta^* \alpha) = \int_{\Delta_2} \delta^* d\alpha = \int_\delta d\alpha = \int_{\partial \delta} \alpha = \int_{\partial \Delta_2} \delta^* \alpha,\]
+where we identify $\delta$, with an abuse of notation, to its image.\\
+
+Let $H_1(X; \Rbb) = \frac{Z_1(X; \Rbb)}{B_1(X; \Rbb)}$ be the first homology of $X$ in real coefficients. We observe that - if $d \alpha = 0$, then
+\[\int_{\partial Y} \alpha = \int_Y d\alpha = 0\ \forall Y \in C_2(X; \Rbb).\quad (\diamondsuit)\]
+Thus, this gives a map $\psi: \alpha \mapsto (H_1(X; \Rbb))^*$ by sending $\alpha$ to the function $\Tilde{\alpha}(\sigma_1) = \int_{\sigma_1} \alpha$. This is well-defined independent of the quotient $B_1(X; \Rbb)$ precisely because of $(\diamondsuit)$.\\
+
+If $d\alpha = 0$ and $\int_{\gamma} \alpha = 0$ for any $\gamma \in Z_1(X)$, then we can define a smooth function $f(q) \coloneqq \int_{q_0}^q \alpha$. This is independent of any path chosen because $\alpha$ integrates to zero on all closed loops, and hence $df = \alpha$. In particular, this gives us the following exact sequence
+% https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiQl4xX3tEUn0oWCkiXSxbMiwwLCJaXjFfe0RSfShYKSJdLFszLDAsIkhfMShYLCBcXFJiYileKiJdLFsxLDEsIlxce2RmXFx9Il0sWzIsMSwiXFx7XFxhbHBoYVxcIHwgZFxcYWxwaGEgPSAwXFx9Il0sWzAsMV0sWzEsMl0sWzIsM10sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XV0=
+\[\begin{tikzcd}
+	0 & {B^1_{DR}(X)} & {Z^1_{DR}(X)} & {H_1(X, \Rbb)^*} 
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{\psi}", from=1-3, to=1-4]
+\end{tikzcd}\]
+
+Here the map $B^1_{DR}(X) \to Z^1_{DR}(X)$ is the inclusion map, and the map $Z^1_{DR}(X) \to H_1(X, \Rbb)^*$ is given by the map $\psi$ specified two paragraphs ago.
+
+\begin{exercise}
+    The exact sequence in fact extends to a short exact sequence of the form
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiQl4xX3tEUn0oWCkiXSxbMiwwLCJaXjFfe0RSfShYKSJdLFszLDAsIkhfMShYLCBcXFJiYileKiJdLFs0LDAsIjAiXSxbMCwxXSxbMSwyXSxbMiwzXSxbMyw0XV0=
+\[\begin{tikzcd}
+	0 & {B^1_{DR}(X)} & {Z^1_{DR}(X)} & {H_1(X, \Rbb)^*} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow[from=1-3, to=1-4]
+	\arrow[from=1-4, to=1-5]
+\end{tikzcd}\]
+The first isomorphism theorem gives $H_1(X, \Rbb)^* \cong H^1_{DR}(X)$.
+\end{exercise}
+
+\begin{definition}
+Any element of $\Omega(X) \oplus \overline{\Omega}(X)$, we will refer to as \textbf{harmonic forms}. Also note that $d$ is the zero map on $\Omega(X) \oplus \overline{\Omega}(X)$.
+\end{definition}
+
+\begin{theorem}[The Hodge Theorem]
+    On a compact Riemann surface $X$, the natural map $\Omega(X) \oplus \overline{\Omega}(X) \to H^1_{DR}(X)$ by sending an element to its equivalence class is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+    For injectivity, suppose $w + \overline{w} \in \Omega(X) \oplus \overline{\Omega}(X)$ is sent to the $0$ element of $H^1_{DR}(X)$, then it means that $w + \overline{w} = df$ for some $f$. However, observe that
+    \[d \mathcal{E} = (\partial + \overline{\partial}) \mathcal{E} \subseteq \partial \mathcal{E} \oplus \overline{\partial } \mathcal{E}, \]
+    and $\partial \mathcal{E} \oplus \overline{\partial } \mathcal{E}$ is orthogonal to $\Omega(X) \oplus \overline{\Omega}(X)$ in the direct sum splitting. Thus, $w + \overline{w} = df$ can only happen when $df = 0$.
+
+    For surjectivity, by the four-way splitting of $\mathcal{E}^1(X)$. For any element $[\alpha] \in H^1_{DR}(X)$, $\alpha$ is an element of $\Lambda^1 \subset \mathcal{E}^1$, so we can write
+    \[\alpha = \beta + \partial f + \overline{\gamma} + \overline{\partial} g\]
+    for some $\beta, \gamma \in \Omega(X)$ and $f, g \in E(X)$.\\
+
+    Now since $d$ annihilates harmonic forms, we have that
+    \[0 = d\alpha = \overline{\partial}(\partial f) + \partial(\overline{\partial} g) = \partial \overline{\partial}(g - f). \]
+    This implies that $g - f$ is a harmonic function on $X$. However, the maximum principle implies that harmonic functions on a closed surface is constant, hence $g - f = c$ for some $c \in \Cbb$. Thus, we have that
+    \[\alpha = \beta + \overline{\gamma} + (\partial + \overline{\partial})(f) = \beta + \overline{\gamma} + df,\]
+    since $\overline{\partial}$ of a constant is zero.\\
+
+    Hence, up to boundary, we have that $\alpha$ is an element of $\Omega(X) \oplus \overline{\Omega}(X)$, which is precisely what it means for $\alpha$ to be in the image of the natural map.
+\end{proof}
+
+\begin{corollary}
+    $\dim_{\Cbb} \Omega = \frac{1}{2} \dim_{\Cbb} (\Omega \oplus \overline{\Omega}) = \frac{1}{2} \dim H^1_{DR} = \frac{1}{2}(2g) = g$.\\
+
+    Here we know that $\dim H^1_{DR} = 2g$ because we proved that $H^1_{DR}$ is isomorphic to $(H_1(X, \Rbb))^*$.
+\end{corollary}
+
+In other words, the analytic genus (dimension of $\Omega$) is the same as the topological genus on a compact Riemann surface $X$.
 
 \newpage
 \section{Lecture April 2nd}
@@ -2528,6 +2776,749 @@ Finally we will state the following fact but not prove it.
         \[(f_* \alpha)(w) = \sum_{z \text{ s.t. } z^n = w} (z \mapsto z^\frac{1}{n})^* \alpha(z).\]
         The claim is that this is equal to zero due to cancellation. One way is to directly calculate this using power series, the other way is to use L2-norms.
     \end{itemize}
+\end{proof}
+
+\newpage
+\section{Lecture April 18th}
+
+Last time, we proved most of one direction of Abel's theorem, but we needed to justify constructing pushforwards.
+
+\subsection{Pushforward of Holomorphic one-Form}
+
+Suppose we have a map between Riemann surfaces that is locally $z \mapsto z^n$. Let $G: z \mapsto z^n$ be the map between the unit open disks on the complex plane.
+
+\begin{exercise}
+    We have that
+    \[G_*(z^k dz) = \begin{cases}
+        z^{\frac{k+1}{n} - 1} dz,\ k \equiv -1\ (mod\ n)\\
+        0, \text{ otherwise.}
+    \end{cases}\]
+    Hint: On $\mathbb{D}^*$ (the punctured disk),  $G^*(G_* \alpha) = \sum_{i = 0}^{n-1} (z \mapsto \rho^i z)^* \alpha$, where $\rho = \exp(\frac{2\pi i}{n})$ (note that $\rho$ is the generator of the Deck group for this branched cover, and $G^*(G_*( \bullet))$ is the summation over the Deck group).
+\end{exercise}
+
+\begin{lemma}
+    The pushforward of a holomorphic one-form is a holomorphic one-form.
+\end{lemma}
+
+\begin{proof}[Proof 1]
+   Using the formula given by the exercise, we note that on the punctured disk,
+   \[G_*(\sum_{k = 0}^\infty c_k z^k dz) = \sum_{\ell = 0}^\infty c_{n(\ell + 1) - 1} z^\ell dz,\]
+   and hence the pushforward $G_*(\sum_{k = 0}^\infty c_k z^k dz)$ extends to the origin and becomes a holomorphic one-form. The definition of a one-form being holomorphic is a local property and we know every map between Riemann surface is locally a map of the form $z \mapsto z^n$ (with well-chosen coordinates) - therefore, we have shown that the pushforward of a holomorphic one-form is a holomorphic one-form.
+\end{proof}
+
+\begin{proof}[Proof 2]
+   We write $G_*(\alpha) = \sum_{\ell = -\infty}^\infty c_\ell z^\ell$ by taking Laurent series. We can compute that
+    \[G^*(z^\ell dz) = (z^n)^{\ell} d(z^n) = n z^{n(\ell + 1) - 1} dz.\]
+    Hence we have that
+    \[G^*(G_*(\alpha)) = n \sum_{\ell =-\infty}^\infty c_\ell z^{n(\ell + 1) - 1} dz.\]
+    Now from the hint, we have that
+    $$G^*(G_* \alpha) = \sum_{i = 0}^{n-1} (z \mapsto \rho^i z)^* \alpha,$$
+    which is holomorphic because it is a finite sum of pullbacks of holomorphic one forms.\\
+    
+    So by a comparison of coefficients we conclude that $c_\ell = 0$ for all $\ell < 0$. Hence, we conclude that $G_*(\alpha)$ is holomorphic.
+\end{proof}
+
+\begin{remark}
+    Given $\alpha \in \Omega(U)$, we can draw $\ker \operatorname{Im}(\alpha)$ given by $\ker \left\{ (z, v) \mapsto \operatorname{Im} \alpha(z)(v) \right\}$. Here in $(z, v)$, $z$ is a point in $U$ and $v$ is a tangent vector based at $z$.\\
+
+    One way to visualize this is as follows - locally we may assume $U$ is simply connected, so we consider $z_0 \in U$ and consider
+    \[h(z) \coloneqq \int_{z_0}^z \alpha.\]
+    In this case, the image would look like
+    \[h^{-1}(\text{horizontal lines}).\]
+\end{remark}
+
+\subsection{Abel's Theorem - ``Hard" Direction}
+Now we will prove the converse of Abel's Theorem, that is
+\begin{theorem}[Converse of Abel's Theorem]
+    If $D = \partial \gamma$ with $\gamma \in C_1(X, \Zbb)$, and for all $\omega \in \Omega(X)$, $\int_\gamma \omega = 0$, then there exists $f \in M(X)$ such that $(f) = D$.
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \textbf{Step 1:} Assuming only that $D = \partial \gamma$ for now, we claim that we can always make $g: X \to \hat{\Cbb}$ such that:
+        \begin{itemize}
+            \item $g|_{n_\epsilon(\supp D)} \in \mathcal{M}(n_\epsilon(\supp D))$ (here $n_\epsilon(\supp D)$ denote a small neighborhood around the support of $D$).
+            \item Let $X - \supp D = \Upsilon$,  $g|_{Z} \in \mathcal{E}^*(\Upsilon) = \{f: \Upsilon \to \Cbb^*\ |\ f \text{ is smooth}\}$.
+            \item $(g) = D$ over $n_\epsilon(\supp D)$.
+            \item For all $\omega \in \Omega(X)$, the integral $\int_X \frac{\overline{\partial} g}{g} \wedge \omega = - 2\pi i \int_{\gamma} \omega$.
+        \end{itemize}
+        Indeed, locally let's suppose that $U \subseteq \Cbb$ is convex with $D = z_1 - z_0$, where $z_1, z_0$ are distinct points in $U$. Since $\partial \gamma = D$, $\gamma$ is a path connecting from $z_0$ going to $z_1$.\\
+        
+        Let $\eta$ denote the straight-line from $z_0$ to $z_1$. Let $V$ be a convex open subset of $U$ containing $\eta$ whose closure is contained in $U$. Here we find a compactly supported function in $U$ called $\varphi \in D(U)$ such that $\varphi|_V \equiv 1$. We define
+        \[g(z) = \begin{cases}
+            \frac{z - z_1}{z - z_0} \text{ on $V$}\\
+            \exp(\varphi(z) \cdot \log \frac{z - z_1}{z - z_0}) \text{ on $U - \eta$}
+        \end{cases}.\]
+        \textbf{Question: Why is the logarithm well-defined?} The only obstruction against defining a logarithm on a domain is if when you make a loop around, there's an additional $2\pi i$. However, in this case, the $2\pi i$'s would be cancelled out because of the quotient $\frac{z - z_1}{z - z_0}$. To be rigorous, for any closed loop $C$ not containing $\eta$, we wish to show that 
+        \[\int_C \frac{d(\frac{z - z_1}{z - z_0})}{\frac{z- z_1}{z - z_0}} = 0.\]
+        Indeed, it suffices to show its imaginary component is $0$. We consider
+        \[\operatorname{Im} \int_C \frac{d(\frac{z - z_1}{z - z_0})}{\frac{z- z_1}{z - z_0}} = \int_C d \arg(\frac{z - z_1}{z - z_0}) = \int_C d \arg (z - z_1) - \int d \arg (z - z_0). \]
+        Hence we see that the imaginary part is the difference of the winding numbers of $z - z_1$ and $z - z_0$ over $C$, which will be the same.\\
+
+        One can quickly check this $g(z)$ satisfies the first $3$ conditions desired locally. Now we know that $g$ is meromorphic near $z_0$ and $z_1$, and $g \equiv 1$ near $\partial U$. To check the last condition, for all $\omega \in \Omega(U)$, then $\omega = df$, and we write $h(z) = \int_{z_0}^z \omega \in \mathcal{O}(U)$. Now, we consider
+        \allowdisplaybreaks
+    \begin{align*}
+        \int_{X} \frac{\overline{\partial} g}{g} \wedge \omega &= \int_{X \setminus (B_\epsilon(z_0) \cup B_\epsilon(z_1))} \frac{\overline{\partial} g}{g} \wedge \omega \tag*{Because $g$ is meromorphic on the balls, so its $\overline{\partial}$ on them is zero}\\
+        &= \int_{X \setminus (B_\epsilon(z_0) \cup B_\epsilon(z_1))} \frac{d g}{g} \wedge \omega \tag*{Because $dg = \overline{\partial} g + \partial g$, but $\frac{\partial g}{g} \wedge \omega = 0$ because they both have $dz$ in them locally}\\
+        &= \int_{X \setminus (B_\epsilon(z_0) \cup B_\epsilon(z_1))} \frac{d g}{g} \wedge df\\
+        &= \int_{X \setminus (B_\epsilon(z_0) \cup B_\epsilon(z_1))} d(f \frac{dg}{g}) \tag*{Lebiniz's Rule}\\
+        &= - \int_{\partial B_\epsilon(z_0) \cup \partial B_\epsilon(z_1)} f \frac{dg}{g} \tag*{Stoke's Theorem, and changing orientation}\\
+        &=  - 2\pi i (\operatorname{Res}_{z_0} f \frac{dg}{g} + \operatorname{Res}_{z_1} f \frac{dg}{g})  \tag*{Residue Theorem and recall that $\operatorname{Res}_p(\frac{dg}{g}) = \ord_p g$}\\
+        &= - 2\pi i (-f(z_0) + f(z_1))\\
+        &= - 2\pi i \int_\gamma \omega \tag*{Fundamental Theorem of Calculus}
+    \end{align*}
+    \end{enumerate}
+    \textbf{We have now constructed $g(z)$ locally.} For a general $D = \partial \gamma$, we can write $\gamma = \sum_{i = 1}^N \gamma_i$, where each $\gamma_i$ is supported in some convex chart $U_i$. Then we get $g_i$ for each $\gamma_i$ (note we set $g_i$ to be identically $1$ outside of $U_i$). Finally, we define
+    \[g = \prod_{i = 1}^N g_i.\]
+    Note that we have that
+    \[g = \begin{cases}
+        g_i, \text{ for $\gamma_i$ on $U_i$ }\\
+        1, \text{ on $X \setminus U_i$}.
+    \end{cases}\]
+    Note that in this case the product formula gives us
+    \[\frac{\overline{\partial} g}{g} = \sum_{i = 1}^N \frac{\overline{\partial} g_i}{g_i}.\]
+
+    \item \textbf{Step 2:} Let's recall that we have constructed a function $g$ such that
+    \begin{itemize}
+        \item $(g) = D$.
+        \item For all $\omega \in \Omega$, we have that
+        \[-2\pi i \int_{\gamma} \omega = \int_X \frac{\overline{\partial} g}{g} \wedge \omega. \]
+    \end{itemize}
+    From assumption of the converse, we know that $\int_{\gamma} \omega = 0$. Hence we have that
+    \[\int_X \frac{\overline{\partial} g}{g} \wedge \omega = 0.\]
+    By the $\overline{\partial}$-criterion, there exists $h \in \mathcal{E}(X)$ such that $\overline{\partial} h = \frac{\overline{\partial} g}{g}$.\\
+
+    Let $f = e^{-h} g$, then we have that
+    \[\overline{\partial} f = - (\overline{\partial} h) e^{-h} g + e^{-h} \overline{\partial} g \]
+    \[= -\frac{\overline{\partial} g}{g}  e^{-h} g + e^{-h} \overline{\partial g} = 0.\]
+    So $f \in M(X)$. Finally, we also have that $(f) = (g) = D$.
+\end{proof}
+
+\newpage
+\section{Lecture April 23rd}
+
+\subsection{Consequences of Abel's Theorem}
+Recall last time we proved Abel's Theorem, which is formulated as follows:
+
+\begin{theorem}
+    If $D \in \operatorname{Div}_0(X)$ (degree zero divisor), then there exists $f \in M(X)^\bullet \coloneqq M(X) - \{0\}$ with $(f) = D$ $\iff$ there exists $\gamma \in C_1(X, \Zbb)$ such that $\partial \gamma = D$ and for all $\omega \in \Omega(X)$, $\int_\gamma \omega = 0$.
+\end{theorem}
+
+Now we make two more observations.\\
+
+\textbf{Observation 1: } If $\partial \gamma_1 = \partial \gamma_2 = D$, then $\gamma_1 - \gamma_2$ is a closed $1$-chain (ie. $\gamma_1 - \gamma_2 \in Z_1(X, \Zbb)$. This gives us a map:
+\[\partial^{-1}: \operatorname{Div}_0(X) \to C_1(X, \Zbb)/Z_1(X, \Zbb) .\]
+
+\textbf{Observation 2: } For any $\gamma \in C_1(X, \Zbb)$, we get $\hat{\gamma} \in \Omega(X)^*$ (the dual space) defined by
+\[\hat{\gamma}(\omega)  \coloneqq \int_\gamma \omega.\]
+This gives us a map:
+\[\hat{\partial^{-1}} : \operatorname{Div}_0(X) \to \frac{\Omega(X)^*}{\widehat{Z_1(X, \Zbb)}},\]
+where $\widehat{Z_1(X, \Zbb)}$ is the image of $Z_1(X, \Zbb)$ given by the $\hat{\bullet}$ operation.\\
+
+Now by Stoke's Theorem with Chains, we note that $\widehat{B_1(X, \Zbb)} = 0$. Hence we observe that we have the isomorphism
+\[\frac{\Omega(X)^*}{\widehat{Z_1(X, \Zbb)}} \cong \frac{\Omega(X)^*}{\widehat{H_1(X, \Zbb)}}.\]
+
+\begin{proposition}
+With a terrible abuse of notation, we can write the quotient notationally as
+\[\frac{\Omega(X)^*}{H_1(X, \Zbb)}.\]
+We can do this because $\hat{\bullet}$ is an embedding on $H_1(X, \Zbb)$.    
+\end{proposition}
+ 
+\begin{proof}
+We first show that the natural map
+\[H_1(X, \Rbb) \to \operatorname{Harm}^1(X)^*  \text{ is injective map between $2g$-dimensional spaces}\]
+This is because the dual map $\operatorname{Harm}^1(X) \to H_1(X, \Rbb)^*$ is an injective map (taking dual on map between finite dimensional vector space preserves injectivity).\\
+
+Now the second map above is constructed as - given $\alpha \in \operatorname{Harm}^1(X)$, we send it to $H_1(X, \Rbb)^*$ by defining $\gamma \mapsto \int_\gamma \alpha$. Now suppose $\alpha$ is a harmonic one-form such that
+\[\int_\gamma \alpha = 0, \forall \gamma \in H_1(X, \Rbb),\]
+then we have that
+\[f(p) = \int_{p_0}^p \alpha \text{ is well-defined}.\]
+Now we have that $df = \alpha$ and $f$ is harmonic, this implies that $f$ is constant, so $\alpha = df = 0$.\\
+
+Now suppose $\beta \in H_1(X, \Rbb)$, if for all $\omega \in \Omega(X)$, we have that $\int_\beta \omega = 0$. Then certainly for all $\overline{\omega} \in \overline{\Omega}(X)$, we have that $\int_\beta \overline{\omega} = 0$. Thus, $\beta$ vanishes all holomorphic and anti-holomorphic forms, so it certainly vanishes all harmonic one forms, implying that $\beta = 0$.\\
+
+Finally, $H_1(X, \Zbb)$ embeds into $H_1(X, \Rbb)$ because $H_1(X, \Zbb)$ has no torsion and $H_1(X, \Rbb)$ is just $\Rbb^{2g}$ where $g$ is the genus of $X$.
+\end{proof}
+
+This enables us to reinterpret the map as
+\[\hat{\partial^{-1}} : \operatorname{Div}_0(X) \to \frac{\Omega(X)^*}{H_1(X, \Zbb)},\]
+We obtain the commutative diagram:
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCJDXzEoWCwgXFxaYmIpIl0sWzIsMCwiXFxPbWVnYShYKV4qIl0sWzAsMiwiXFxvcGVyYXRvcm5hbWV7RGl2fV8wKFgpIl0sWzIsMiwiXFxmcmFje1xcT21lZ2EoWCleKn17SF8xKFgsIFxcWmJifSkiXSxbMSwxLCJDXzEoWCwgXFxaYmIpL1pfMShYLCBcXFpiYikiXSxbMCwxLCJcXGdhbW1hIFxcbWFwc3RvIFxcaGF0e1xcZ2FtbWF9Il0sWzAsMiwiXFxwYXJ0aWFsIiwyXSxbMSwzXSxbMCw0XSxbMiw0LCJcXHBhcnRpYWxeey0xfSIsMl0sWzQsMywiW1xcZ2FtbWFdIFxcbWFwc3RvIFxcaGF0e1tcXGdhbW1hXX0iLDFdLFsyLDMsIlxcd2lkZWhhdHtcXHBhcnRpYWxeey0xfX0iLDFdXQ==
+\[\begin{tikzcd}
+	{C_1(X, \Zbb)} && {\Omega(X)^*} \\
+	& {C_1(X, \Zbb)/Z_1(X, \Zbb)} \\
+	{\operatorname{Div}_0(X)} && {\frac{\Omega(X)^*}{H_1(X, \Zbb}}
+	\arrow["{\gamma \mapsto \hat{\gamma}}", from=1-1, to=1-3]
+	\arrow[from=1-1, to=2-2]
+	\arrow["\partial"', from=1-1, to=3-1]
+	\arrow[from=1-3, to=3-3]
+	\arrow["{[\gamma] \mapsto \hat{[\gamma]}}"{description}, from=2-2, to=3-3]
+	\arrow["{\partial^{-1}}"', from=3-1, to=2-2]
+	\arrow["{\widehat{\partial^{-1}}}"{description}, from=3-1, to=3-3]
+\end{tikzcd}\]
+
+The following is a reinterpretation of Abel's Theorem
+\begin{theorem}
+    The following sequence is exact:
+    % https://q.uiver.app/#q=WzAsNSxbMCwwLCIwIl0sWzEsMCwiXFxDYmJeXFxidWxsZXQiXSxbMiwwLCJNKFgpXlxcYnVsbGV0Il0sWzMsMCwiXFxvcGVyYXRvcm5hbWV7RGl2fV8wKFgpIl0sWzUsMCwiXFxmcmFje1xcT21lZ2EoWCleKn17SF8xKFgsIFxcWmJiKX0iXSxbMyw0LCJcXGhhdHtcXHBhcnRpYWxeey0xfX0iXSxbMiwzLCJmIFxcbWFwc3RvIChmKSIsMl0sWzEsMl0sWzAsMV1d
+\[\begin{tikzcd}
+	0 & {\Cbb^\bullet} & {M(X)^\bullet} & {\operatorname{Div}_0(X)} && {\frac{\Omega(X)^*}{H_1(X, \Zbb)}}
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{f \mapsto (f)}"', from=1-3, to=1-4]
+	\arrow["{\hat{\partial^{-1}}}", from=1-4, to=1-6]
+\end{tikzcd}\]
+Specifcally, the statement shows that it is exact at $\operatorname{Div}_0(X)$.
+\end{theorem}
+
+\subsection{Jacobi's Theorem}
+
+\begin{theorem}[Jacobi's Theorem]
+    Jacobi's Theorem states that the map
+\[\hat{\partial^{-1}}: \operatorname{Div}_0(X) \to \frac{\Omega(X)^*}{H_1(X, \Zbb)}\]
+is surjective.
+\end{theorem}
+
+Abel's Theorem combined with Jacobi's Theorem gives
+\begin{theorem}[Abel-Jacobi Theorem]
+    The following sequence is exact:
+    % https://q.uiver.app/#q=WzAsNixbMCwwLCIwIl0sWzEsMCwiXFxDYmJeXFxidWxsZXQiXSxbMiwwLCJNKFgpXlxcYnVsbGV0Il0sWzMsMCwiXFxvcGVyYXRvcm5hbWV7RGl2fV8wKFgpIl0sWzUsMCwiXFxmcmFje1xcT21lZ2EoWCleKn17SF8xKFgsIFxcWmJiKX0iXSxbNiwwLCIwIl0sWzMsNCwiXFxoYXR7XFxwYXJ0aWFsXnstMX19Il0sWzIsMywiZiBcXG1hcHN0byAoZikiLDJdLFsxLDJdLFswLDFdLFs0LDVdXQ==
+\[\begin{tikzcd}
+	0 & {\Cbb^\bullet} & {M(X)^\bullet} & {\operatorname{Div}_0(X)} && {\frac{\Omega(X)^*}{H_1(X, \Zbb)}} & 0
+	\arrow[from=1-1, to=1-2]
+	\arrow[from=1-2, to=1-3]
+	\arrow["{f \mapsto (f)}"', from=1-3, to=1-4]
+	\arrow["{\hat{\partial^{-1}}}", from=1-4, to=1-6]
+	\arrow[from=1-6, to=1-7]
+\end{tikzcd}\]
+\end{theorem}
+
+\begin{definition}
+    Let $X$ be a compact Riemann surface, we define
+    \[\operatorname{Pic}_0(X) \coloneqq \frac{\operatorname{Div}_0(X)}{\operatorname{Prin}(X)},\]
+    where $\operatorname{Prin}(X) = \{(f)\ |\ f \in M(X)^\bullet\}$.\\
+
+    We define the Jacobian of $X$ as
+    \[\operatorname{Jac}(X) \coloneqq \frac{\Omega(X)^*}{H_1(X, \Zbb)}.\]
+    Note that $\operatorname{Jac}(X)$ has a natural complex manifold structure as the quotient of $\Cbb^g$ by a lattice.
+\end{definition}
+
+\begin{corollary}
+    The Abel-Jacobi Theorem implies that $\operatorname{Pic}_0(X)$ is isomorphic to $\operatorname{Jac}(X)$.
+\end{corollary}
+
+Here's another theorem we will prove today.
+\begin{theorem}\label{thm:embedding_to_Jacobian}
+    If $g(X) > 0$. Given $p_0 \in X$, the map $p \mapsto \hat{\partial^{-1}}(p - p_0)$ is a holomorphic embedding (ie. holomorphic $+$ injective immersion) into $X \to \operatorname{Jac}(X)$.
+\end{theorem}
+
+\begin{corollary}
+    If $g(X) = 1$ (the genus), then $\operatorname{Pic}_0(X) \cong \frac{\Omega(X)^*}{H_1(X, \Zbb)} \cong \frac{\Cbb}{\Lambda}, $ which means that $\operatorname{Pic}_0(X)$ is the complex plane modulo a lattice (ie. a torus). We also have an embedding of $X \mapsto \Cbb/\Lambda$, which means that they are isomorphic - so $X \cong \operatorname{Jac}(X)$.\\
+
+    \textbf{Note: } The last sentence uses the fact that an embedding of complex Riemann surfaces is an isomorphism.
+\end{corollary}
+
+Now we will prove Jacobi's Theorem:
+\begin{proof}[Proof of Jacobi's Theorem]
+ Recall we have the commutative diagram:
+% https://q.uiver.app/#q=WzAsNSxbMCwwLCJDXzEoWCwgXFxaYmIpIl0sWzIsMCwiXFxPbWVnYShYKV4qIl0sWzAsMiwiXFxvcGVyYXRvcm5hbWV7RGl2fV8wKFgpIl0sWzIsMiwiXFxmcmFje1xcT21lZ2EoWCleKn17SF8xKFgsIFxcWmJifSkiXSxbMSwxLCJDXzEoWCwgXFxaYmIpL1pfMShYLCBcXFpiYikiXSxbMCwxLCJcXGdhbW1hIFxcbWFwc3RvIFxcaGF0e1xcZ2FtbWF9Il0sWzAsMiwiXFxwYXJ0aWFsIiwyXSxbMSwzXSxbMCw0XSxbMiw0LCJcXHBhcnRpYWxeey0xfSIsMl0sWzQsMywiW1xcZ2FtbWFdIFxcbWFwc3RvIFxcaGF0e1tcXGdhbW1hXX0iLDFdLFsyLDMsIlxcd2lkZWhhdHtcXHBhcnRpYWxeey0xfX0iLDFdXQ==
+\[\begin{tikzcd}
+	{C_1(X, \Zbb)} && {\Omega(X)^*} \\
+	& {C_1(X, \Zbb)/Z_1(X, \Zbb)} \\
+	{\operatorname{Div}_0(X)} && {\frac{\Omega(X)^*}{H_1(X, \Zbb}}
+	\arrow["{\gamma \mapsto \hat{\gamma}}", from=1-1, to=1-3]
+	\arrow[from=1-1, to=2-2]
+	\arrow["\partial"', from=1-1, to=3-1]
+	\arrow[from=1-3, to=3-3]
+	\arrow["{[\gamma] \mapsto \hat{[\gamma]}}"{description}, from=2-2, to=3-3]
+	\arrow["{\partial^{-1}}"', from=3-1, to=2-2]
+	\arrow["{\widehat{\partial^{-1}}}"{description}, from=3-1, to=3-3]
+\end{tikzcd}\]
+By the art of diagram chasing, it suffices for us to show that the top map $C_1(X, \Zbb) \to \Omega(X)^*$ is surjective - this is sometimes called the \textbf{Lifted Jacobi's Theorem}. If the genus is zero, we are already done. Otherwise, we assume the genus is positive. We wll use the help of a lemma. 
+
+\begin{lemma}
+    For $0 \leq k \leq g$, where $g$ is the genus of $X$, there exists points $p_1, ..., p_k$ such that 
+    \[\Omega_k := \{\omega \in \Omega(X)\ |\ \forall i, \omega(p_i) = 0\} \text{ has codimenson $k$ in $\Omega(X)$}.\]
+\end{lemma}
+
+\begin{proof}[Proof of Lemma]
+    Clearly $\operatorname{codim} \Omega_k \leq k$ (because we are putting $k$ linear equations, the only danger is that some of these equations could be redundant). By induction, this is clearly true for $k = 0$. Now suppose $p_1, ..., p_k,\ (k < g)$ are already given, we can take $\omega \in \Omega_k - \{0\}$ and choose $p_{k+1}$ such that
+    \[\omega(p_{k+1}) \neq 0.\]
+    Then $\operatorname{codim} \Omega_{k+1} > \operatorname{codim} \Omega_k = k$ (where the last equality is given by induction). On the other hand, we know that $k+1 \geq \operatorname{codim} \Omega_{k+1}$ - so we conclude that $\operatorname{codim} \Omega_{k+1} = k+1$.
+\end{proof}
+
+Now we will prove that the map $\int \bullet: C_1(X, \Zbb) \to \Omega(X)^*$ given by $\gamma \mapsto (\omega \mapsto \int_\gamma \omega)$ is surjective. We observe it is enough to show that the image contains a neighborhood of $0 \in \Omega(X)^*$ (note that $\Omega(X)^*$ is a finite dimensional vector space with the standard topology) - this is because multiplication by $n$ in the domain allows us to hit any vector we want.\\
+
+It is convenient to think about the map $\frac{C_1(X, \Zbb)}{B_1(X, \Zbb)} \to \Omega(X)^*$ instead (as it is zero on the boundary). Given points $p_1, ..., p_g$ on $X$, we can find simply connected neighborhoods $U_i$ around each $p_i$. Now we define maps
+\[\rho_i: U_i \to \Omega(X)^*, \rho_i(q) \mapsto (\omega \mapsto \int_{p_i}^q \omega).\]
+Note the distinction between the function $\rho_i$ and the point $p_i$. Then we can compute the derivative
+\[D_{\rho_i}(p_i)(v) = (\omega \mapsto \omega(p_i)(v)). \]
+We can define a function
+\[e_i: U_i \to \frac{C_1(X, \Zbb)}{B_1(X, \Zbb)}, e_i(q) = \text{ path in $U_i$ from $p_i$ to $q$ }.\]
+
+This gives us a commutative diagram:
+% https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXE9tZWdhKFgpXioiXSxbMCwwLCJVX2kiXSxbMSwxLCJDXzEoWCxcXFpiYikvQl8xKFgsIFxcWmJiKSJdLFsxLDAsIlxccmhvX2kiXSxbMSwyLCJlX2kiLDJdLFsyLDAsIltcXGdhbW1hXSBcXG1hcHN0byAoXFxvbWVnYSBcXG1hcHN0byBcXGludF9cXGdhbW1hIFxcb21lZ2EpIiwxXV0=
+\[\begin{tikzcd}
+	{U_i} && {\Omega(X)^*} \\
+	& {C_1(X,\Zbb)/B_1(X, \Zbb)}
+	\arrow["{\rho_i}", from=1-1, to=1-3]
+	\arrow["{e_i}"', from=1-1, to=2-2]
+	\arrow["{[\gamma] \mapsto (\omega \mapsto \int_\gamma \omega)}"{description}, from=2-2, to=1-3]
+\end{tikzcd}.\]
+Now we define
+\[\rho: \prod_{i = 1}^g U_i \to \Omega(X)^* \text{ by } \rho(q_1, ...,q_g) = \sum_{i = 1}^g \rho_i(q_i).\]
+We have a similar commutative diagram
+% https://q.uiver.app/#q=WzAsMyxbMiwwLCJcXE9tZWdhKFgpXioiXSxbMCwwLCJcXHByb2Rfe2kgPSAxfV5nIFVfaSJdLFsxLDEsIkNfMShYLFxcWmJiKS9CXzEoWCwgXFxaYmIpIl0sWzEsMCwiXFxyaG8iXSxbMSwyLCJlID0gXFxzdW0gZV9pIiwxXSxbMiwwLCJbXFxnYW1tYV0gXFxtYXBzdG8gKFxcb21lZ2EgXFxtYXBzdG8gXFxpbnRfXFxnYW1tYSBcXG9tZWdhKSIsMV1d
+\[\begin{tikzcd}
+	{\prod_{i = 1}^g U_i} && {\Omega(X)^*} \\
+	& {C_1(X,\Zbb)/B_1(X, \Zbb)}
+	\arrow["\rho", from=1-1, to=1-3]
+	\arrow["{e = \sum e_i}"{description}, from=1-1, to=2-2]
+	\arrow["{[\gamma] \mapsto (\omega \mapsto \int_\gamma \omega)}"{description}, from=2-2, to=1-3]
+\end{tikzcd}\]
+Now we will show that the image of $\rho$ covers a neighborhood of the origin, which by the commutativity of the diagram will imply the same for $C_1(X, \Zbb)/B_1(X, \Zbb) \to \Omega(X)^*$. To do this, it's enough for us to show that
+\[D_\rho: \prod_{i = 1}^g T_{p_i} X \to \Omega(X)^* \text{ is surjective}.\]
+To do this, it's enough for us to show that the adjoint map (which is just the transpose):
+\[D_\rho^*: \Omega(X) \to \prod_{i = 1}^g T_{p_i}^* X \text{ is injective}.\]
+
+But from our previous calculation of $D_{\rho_i}$, we have that $(D_\rho^*)(\omega) = (\omega(p_1), ..., \omega(p_g))$. Hence $D_\rho^*(\omega) = 0$ implies $\omega = 0$ by the Lemma we derived earlier.
+\end{proof}
+
+Now we will prove Theorem~\ref{thm:embedding_to_Jacobian}.
+\begin{proof}[Proof of Theorem~\ref{thm:embedding_to_Jacobian}]
+    Given $p_0 \in X$, we can first give a map
+    \[e: X \to \operatorname{Pic}_0(X), e(q) = q - p_0.\]
+    We claim that is a holomorphic embedding. indeed, we have the commutative diagram
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJYIl0sWzEsMCwiXFxvcGVyYXRvcm5hbWV7UGljfV8wKFgpIl0sWzEsMSwiXFxmcmFje1xcT21lZ2EoWCl9e0hfMShYLCBcXFpiYil9Il0sWzAsMSwiZSJdLFsxLDJdLFswLDIsImcgXFxtYXBzdG8gW1xcb21lZ2EgXFxtYXBzdG8gXFxpbnRfe1xcZ2FtbWEocF8wLCBxKX0gXFxvbWVnYV0iLDIseyJjdXJ2ZSI6NX1dXQ==
+\[\begin{tikzcd}
+	X & {\operatorname{Pic}_0(X)} \\
+	& {\frac{\Omega(X)}{H_1(X, \Zbb)}}
+	\arrow["e", from=1-1, to=1-2]
+	\arrow["{g \mapsto [\omega \mapsto \int_{\gamma(p_0, q)} \omega]}"', curve={height=30pt}, from=1-1, to=2-2]
+	\arrow[from=1-2, to=2-2]
+\end{tikzcd}\]
+where $\gamma(p_0, q)$ is a path in $X$ from $p_0$ to $q$ (this is well-defined because of the quotient). Let's call the map $X \to \frac{\Omega(X)}{H_1(X, \Zbb)}$ as $\hat{e}$.\\
+
+Now we observe that
+\[D \hat{e}(q)(v) = (\omega \mapsto \omega(q)(v)),\]
+which means $\hat{e}$ is a holomorphic map. Now 
+\begin{enumerate}
+    \item Injectivity: If $q - p_0 = (f)$ for some $f \in M(X)^\bullet$, then $f: X \to \hat{\Cbb}$ has degree $1$, so $X$ has genus $0$, which is a contradiction.
+    \item Immersion: If $De(q) = 0$, then $D\hat{e}(q) = 0$, so $\omega(q) = 0$ for all $\omega \in \Omega(X)$. This would be a contradiction to the following exercise that could be solved using the Riemann-Roch theorem.
+    \begin{exercise}
+           Suppose the genus of $X$ is positive, then there exists no point $p \in X$ such that $\omega(p) = 0$ for all $\omega \in \Omega(X) - \{0\}$.
+    \end{exercise}
+\end{enumerate}
+\end{proof}
+
+\newpage
+\section{Lecture April 25th}
+
+\subsection{Elliptic Curve is a Torus}
+
+Recall last time, we assigned the following exercise. Now we will prove it.
+\begin{proposition}
+   Suppose the genus of $X$ is positive, then there exists no point $p \in X$ such that $\omega(p) = 0$ for all $\omega \in \Omega(X) - \{0\}$.
+\end{proposition}
+    
+\begin{proof}
+    Suppose there exists such $p$ for contradiction, then $\dim \Omega_{-p} = \dim \Omega$ (by our assumption in the Proposition). On the other hand, the Riemann-Roch theorem tells us that
+    \[\dim \mathcal{O}_p(X) = 1 - g + \deg(1 \cdot p) + \dim \Omega_{-p}(X) = 1 - g + 1 + g = 2.\]
+    Hence, there exist $g \in \mathcal{O}_p(X) - \mathcal{O}(X)$ such that $g: X \to \hat{\Cbb}$ is a degree one branched cover (because it has a simple pole at $p$). Thus, $X \to \hat{\Cbb}$ is an isomorphism, which is a contradiction to $X$ having positive genus.
+\end{proof}
+
+\begin{example}
+    Let $X = \{(x, y)\ |\ y^2 = x^3 + ax + b\} \cup \{\infty\}$. In other words, we are looking at the projective compactification that
+    \[X = \{[x: y: z] \in \Pbb^2\ |\ y^2 z = x^3 + ax z^2 + b z^3\}, \infty = [0: 1: 0]. \]
+    This is clearly a Riemann surface except possibly at infinity, and the part at infinity can be verified otherwise.\\
+    
+    There is a group operation on $X$ given as followings - for any $p, q \in X$, we draw a line from $p$ to $q$ and mark its third intersection point $r$. We also mark the group operation of $r$ and $\infty$ as $r'$ (a vertical straight line). 
+    \[\includegraphics[width=0.5\textwidth]{Figures/lec23-1.png}\]
+\end{example}
+
+We want to embed $X$ into $\operatorname{Pic}_0(X)$ by $p \mapsto p - \infty$.
+\begin{proposition}
+    $(p - \infty) + (q - \infty) = r' - \infty$ in $\operatorname{Pic}_0(X)$.
+\end{proposition}
+
+\begin{proof}
+ We first note that, if $P: \Cbb^2 \to \Cbb$ is a polynomial function of two variables, then $P$ extends to $\hat{P} \in M(X)$. Now, we take $L: \Cbb^2 \to \Cbb$ with $\{L(x, y) = 0\} \cap \{X - \{\infty\}\} = \{p, q, r\}$ and $p, q, r$ are simple roots. In this case, we can write $L(x, y) = ux + by + c$. This gives a meromorphic function
+    \[\hat{L}: X \to \hat{\Cbb}, \hat{L}([x: y: z]) = [ux + by + cz: z] \in \Pbb^1.\]
+    We can check in a straight-forward way that
+    \[(\hat{L}) = p + q + r - 3 \infty.\]
+    Similarly we could have $M((x, y)) = x - r_x$, where we write $r = (r_x, r_y)$. $M$ also extends to a meromorphic function $\hat{M}$ and the claim is that
+    \[(\hat{M}) = r + r' - 2 \infty.\]
+
+    Now we see that
+    \[(p - \infty) + (q - \infty) - (r' - \infty) = (\frac{\hat{L}}{\hat{M}}),\]
+   so the term $(p - \infty) + (q - \infty) - (r' - \infty)$ is principal and hence equal to zero. Thus, we have that
+   $$(p - \infty) + (q - \infty) = r' - \infty.$$
+\end{proof}
+
+We can similarly show that 
+\[(r - \infty) + (r' - \infty) \equiv 0.\]
+
+Hence, we have verified that 
+\begin{proposition}
+    The map $X \to \operatorname{Pic}_0(X)$ by $p \mapsto p - \infty$ is a group homomorphism, and the image of $X$ under the map is a group.
+\end{proposition}
+   
+\begin{theorem}
+    If $x^3 + ax + b$ is separable, the map $X \to \operatorname{Pic}_0(X)$ is an isomorphism of Riemann surfaces and groups.
+\end{theorem}
+
+\begin{proof}
+    Consider the map $\pi: (x, y) \to x$ on $X$. In this case we see that
+    \[\operatorname{crit}(\pi) = \operatorname{roots}(x^3 + ax + b) \cup \{\infty\}.\]
+    By the separability assumption, $\operatorname{crit}(\pi)$ has 4 points. Hence by the Riemann-Hurwitz theorem, $X$ has genus $1$.\\
+
+    Now the map $X \to \operatorname{Pic}_0(X)$ is an embedding between two genus $1$ surfaces and hence is an isomorphism.
+\end{proof}
+
+\subsection{Algebraic Intersection Number}
+
+We have a map $H_1(X, \Zbb) \hookrightarrow \Omega(X)^*$. 
+\begin{definition}
+    Let $\alpha, \beta \in H_1(X, \Zbb)$, the \textbf{algebraic intersection number} of $\alpha$ and $\beta$ is given by
+    \[i(\alpha, \beta) \coloneqq \langle \operatorname{PD}(\alpha) \cup \operatorname{PD}(\beta), F_X \rangle,\]
+    where $F_X$ is the fundamental class of $X$, $\operatorname{PD}$ is the Poincare dual map, and $\langle \bullet, \bullet \rangle$ is the pairing with the fundamental class given by the Poincare duality.\\
+
+    Note that if $\gamma = \partial u$, then for all $\beta$,
+    \[i(\gamma, \beta) = 0.\]
+    Note we also have that
+    \[i(\beta, \alpha) = - i(\alpha, \beta).\]
+\end{definition}
+
+There is a more geometric interpretation of the algebraic intersection number:
+\[\includegraphics[width=0.5\textwidth]{Figures/lec23-2.png}\]
+
+Let $X$ be a genus $g$ surface, for each hole, we can define $\alpha_i, \beta_i$ as follows that resembles the idea of a \textbf{sympletic basis}.
+\[\includegraphics[width=0.5\textwidth]{Figures/lec23-3.png}\]
+- in the sense that we may find $\alpha_1i, \beta_i$ (curves on $X$) as a basis of $H^1(X)$ such that we have that
+\[i(\alpha_i, \beta_j) = \delta_{ij} = \begin{cases}
+    1, i = j\\
+    0, i \neq j
+\end{cases}, i(\beta_i, \alpha_j) = - \delta_{ij}, \text{ and } i(\alpha_i, \alpha_j) = i(\beta_i, \beta_j) = 0.\]
+
+\textbf{Observation:} We can extend the intersection form on $H_1(X, \Zbb)$ to $H_1(X, \Rbb)$, which then we know that $\Omega(X)^* \cong H_1(X, \Rbb)$. This gives us an intersection form on $\Omega(X)^*$ (a real anti-symmetric bilinear form).\\
+
+On the other hand, for $\alpha, \beta \in \Omega$, we can take
+\[(\alpha, \beta) \mapsto \int_X (\alpha + \overline{\alpha}) \wedge (\beta + \overline{\beta}) = \int_X \alpha \wedge \overline{\beta} + \int_X \overline{\alpha} \wedge \beta = 2\operatorname{Re}(\int_X \alpha \wedge \overline{\beta}) = 2\operatorname{Im}(\int_X i \alpha \wedge \overline{\beta}).\]
+This is an anti-symmetric and real bilinear form. From here, we can define a \textbf{Hermitian inner product}
+\[\langle \alpha, \beta \rangle = \int_X i \alpha \wedge \overline{\beta}.\]
+Note that this is the case because
+\[\langle \beta, \alpha \rangle = \int_X i \beta \wedge \overline{\alpha} = \int_X - \overline{\alpha} \wedge i \beta = \overline{\int_X - \alpha \wedge \overline{i\beta}} = \overline{\int_X i \alpha \wedge \overline{\beta}} = \overline{\langle \alpha, \beta \rangle}.\]
+\[\langle \lambda \alpha, \beta \rangle = \lambda \langle \alpha, \beta \rangle.\]
+\[\langle \alpha, \alpha \rangle = \int_X i \alpha \wedge \overline{\alpha} = \int_X 2|\alpha(z)|^2 dx dy \geq 0,\]
+where the last equality comes from a calculation we have done in class before.
+
+\begin{remark}
+    Up to sign, $i \alpha$ is the Hodge star operator applied to $\alpha$.
+\end{remark}
+
+We can use this to define a Hermitation inner product on the dual space of $\Omega(X)$, which is also an anti-symmetric bilinear form on $\Omega(X)^*$. Taking the imaginary component of this Hermitation inner product is sympletic $\Rbb$-form (sympletric means bilinear, anti-symmetric, non-degenerate).
+
+\begin{theorem}
+    The intersection form on $\Omega(X)^*$ agrees with the sympletric $\Rbb$-form constructed on $\Omega(X)^*$ here, except possibly by a factor of $2$.
+\end{theorem}
+
+\begin{lemma}
+Let $\eta, \omega$ be two closed $1$-forms on $X$, we can write
+\[\int_X \eta \wedge \omega = \sum_{i = 1}^g \int_{\alpha_i} \eta \int_{\beta_i} \omega - \int_{\alpha_i} \omega \int_{\beta_i} \eta.  \]    
+\end{lemma}
+
+What this lemma means we can consider the map $\Omega(X) \to H_1(X, \Zbb)^* = H^1(X, \Zbb)$ by
+\[\omega \mapsto (\int_{\alpha_i} \omega, \int_{\beta_i} \omega_i)_{i = 1}^g,\]
+the integral of the cohomology is exactly the cup product.
+
+\begin{proof}[Proof Sketch of Lemma]
+    We can without loss set $\alpha_i, \beta_i$'s such that they are all based at the same point:
+    \[\includegraphics[width=0.2\textwidth]{Figures/lec23-4.png}\]
+    We take the surface, and we cut it along all these curves $\alpha_i, \beta_i$'s, this will give a $4g$-polygon $P$:
+    \[\includegraphics[width=0.5\textwidth]{Figures/lec23-5.png}\]
+    Since $\eta, \omega$ are closed, we can write $\eta = df$ on $P$ ($P$ is contractible so $\eta$ becomes exact). Then we have that by Stoke's Theorem
+    \[\int_{\partial P} f \omega = \int_P \eta \wedge \omega  = \int_X \eta \wedge \omega.\]
+    Then the point is that given $z_0 \in \alpha_i$ and $z_1 \in \alpha_{i+1}$ with a path betweent hem homotopic to $\beta_i$, we could write
+    \[f(z_1) - f(z_0) = \int_{\beta_i} \eta,\]
+    which by repeated use of this property could give us the desired property.
+\end{proof}
+
+\textbf{The upshot is that:} integral sympletic pairings on $H_1(X, \Zbb)$ (without any complex structure needed) extends to the imaginary part of a Hermitian inner product on $\Omega(X)^*$. This means that
+\[\frac{\Omega(X)^*}{H_1(X, \Zbb)} \text{ is a ``\textbf{principally polarized Abelian variety}"},\]
+which actually implies that you can holomorphically embed it into projective space.\\
+
+Furthermore, we can find $\omega_1, ..., \omega_g$ such that
+\[\int_{\alpha_i} \omega_j = \delta_{ij},\]
+meaning that $\frac{\Omega(X)^*}{H_1(X, \Zbb)}$ is determined by the matrix $(\int_{\beta_i} \omega_j)$.
+
+\newpage
+\section{Lecture May 2nd}
+
+\subsection{Constructing Harmonic Functions}
+
+The goal of this lecture (and possibly the next) is to prove the Uniformization theorem.
+\begin{theorem}[The Uniformization theorem]
+    The only simply connected Riemann surfaces are either $\Cbb$, the disk $\mathbb{D}$, or the sphere $\Cbb P^1$.
+\end{theorem}
+
+Note that we have shown that any compact Riemann sphere is biholomorphic to $\Cbb P^1$. This follows from classification because it necessarily has genus zero and we showed that any genus zero compact Riemann surface is biholomorphic to the Riemann sphere.\\
+
+Before we prove the Uniformization theorem, we will prove the following theorem.
+
+\begin{theorem}[Constructing Harmonic Function]\label{thm::perron}
+    Suppose $X$ is a possibly large Riemann surface (in this case, $X$ may not be secound countable) and $Y \subseteq X$ is open with smooth topological boundary $\partial Y$. Suppose $f: \partial Y \to \Rbb$ is bounded and continuous, then there exists an unique extension $f: cl(Y) \to \Rbb$ such that $f|_Y$ is harmonic.\\
+
+    Here by $f: Y \to \Rbb$ being harmonic we mean that $\overline{\partial} \partial f = 0$. In locally coordinates, this is the same $\overline{\partial} \overline{\partial} f = 0$ in each chart, if and only if $(\frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2})(f) = 0$.
+\end{theorem}
+
+In this lecture, we will assume that every Riemann surface we encounter is possibly large. Recall we proved in the fall that Theorem~\ref{thm::perron} holds on the open unit disk in $\Cbb$.
+\begin{lemma}
+    In the case where $X = \Cbb$, $Y = \mathbb{D}$, and $f: \partial \mathbb{D} \to \Rbb$. Let $z \in \mathbb{D}$, we can define
+\[f(z) = \frac{1}{2\pi} \int_{0}^{2\pi} \operatorname{Re} \frac{e^{i\theta} + z}{e^{i\theta} - z} f(e^{i\theta}) d\theta.\]
+In this case, $f: \overline{D} \to \Rbb$ is continuous and bounded. $f|_{\overline{D}}$ is harmonic and uniquely extend the boundary function.
+\end{lemma}
+
+\begin{remark}
+    $\operatorname{Re} \frac{e^{i\theta} + z}{e^{i\theta} - z}$ is called the ``Poisson kernel" in this case.
+\end{remark}
+
+We also recall that harmonic function satisfy the following two maximum principles.
+\begin{theorem}[Maximum Value Principle]
+    \begin{enumerate}
+        \item If $Y$ is open and $f: Y \to \Rbb$ is harmonic, then $f$ has no local maximum (resp. local minimum).
+        \item If $\overline{Y}$ is compact, $f: \overline{Y} \to \Rbb$ is continuous on $\overline{Y}$ and harmonic on $Y$, then $f$ attains maximum on $\partial Y$. 
+    \end{enumerate}
+\end{theorem}
+
+We will first prove a preliminary theorem for our purpose here.
+\begin{theorem}[Harnack's Principle]
+    Suppose $Y$ is a Riemann surface and $u_1 \leq u_2 \leq ...$ (everywhere) are harmonic functions on $Y$ with $u_i \leq B \in \Rbb$ for all $i$.\\
+    
+    By the Monotone Convergence theorem, we can define $u^*(x) = \lim_{i \to \infty} u_i(x)$. In this case, $u^*(x): Y \to \Rbb$ is harmonic.
+\end{theorem}
+
+\begin{remark}
+    A harmonic function on the real-line is affine. The 1-dimensional analogue of the Harnack's principle is that the 1-dimensional limit of affine functions is affine.\\
+
+    How would we prove this for the 1-dimensional case? Well consider $a < b \in \Rbb$ and $u^*(a)$ and $u^*(b)$. We want to check that
+    \[u^*(x) - u^*(a) = (x - a)\frac{u^*(b) - u^*(a)}{b-a}.\]
+    This is because for each $i$, we have that
+    \[u_i(x) - u_i(a) = (x-a)\frac{u_i(b) - u_i(a)}{b-a}.\]
+    Both sides are continuous in $x$ and taking the pointwise limit gives the conclusion.
+\end{remark}
+
+\begin{proof}[Proof of Harnack's Principle]
+    Let $z \in Y$. Take a chart $(U, \varphi: U \to \Cbb)$ containing $z$ such that $U \subseteq Y$, $\varphi(z) = 0 \in \Cbb$, $\varphi(U)$ contains the unit disk. The picture to have in mind:
+    \[\includegraphics[width=0.5\textwidth]{Figures/lec24-1.png}\]
+    It is enough to show that $u^* \circ \varphi^{-1}$ s harmonic on $\mathbb{D}$. Indeed, for each $i \in \Nbb$, $z \in \mathbb{D}$, the uniqueness property tells us that
+    \[u_j(z) = \frac{1}{2\pi} \int_0^{2\pi} P(z, \theta) u_j(e^{i\theta}) d\theta.\]
+    Now we observe that
+    \[\lim_{j \to \infty} \frac{1}{2\pi} \int_{0}^{2\pi} P(z, \theta) u_j(e^{i\theta}) d\theta \to \frac{1}{2\pi} \int_{0}^{2\pi} P(z, \theta) u^*(e^{i\theta}) d\theta\]
+    by the Monotone Convergence Theorem. Now from a general PDEs fact, we know the integral $\frac{1}{2\pi} \int_{0}^{2\pi} P(z, \theta) v(e^{i\theta}) d\theta$ is harmonic in $z$ for every bounded Borel function $v: \partial \mathbb{D} \to \Rbb$, which concludes the proof.
+\end{proof}
+
+\begin{definition}
+    Let $Y$ be a Riemann surface, we define
+    \[\operatorname{Reg}(Y) = \{U \subseteq Y\ |\ cl(U) \text{ is compact in $Y$ and for all $f \in C^0(\partial U, \Rbb)$, there exist extension $f \in C^0(\overline{U}, \Rbb)$ with $f|_U$ harmonic}\}.\]
+    Note that every point has a small neighborhood where the Dirichlet problem given in $\operatorname{Reg}(Y)$ can be solved, by the lemma. Hence we have that
+    \[Y = \bigcup_{U \in \operatorname{Reg}(Y)} U.\]
+\end{definition}
+
+\begin{definition}
+For $D \in \operatorname{Reg}(Y)$ and $f: Y \to \Rbb$ continuous, we let 
+\[P_D f(z) = \begin{cases}
+    f(z), z \notin D\\
+    \text{harmonic extension at $z$}, z \in D
+\end{cases}.\]
+By the glueing lemma, this becomes a continuous function on $Y$.
+\end{definition}
+
+\begin{lemma}
+    Here we have some standard properties
+    \begin{enumerate}
+        \item If $u \leq v$, then $P_D u \leq P_D v$.
+        \item $P_D(u + v) = P_D u + P_D v$.
+        \item $P_D (\lambda u) = \lambda P_D(u)$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{definition}
+    We say that a continuous function $u: Y \to \Rbb$ is \textbf{subharmonic} if for all $D \in \operatorname{Reg}(Y)$, $P_D(u) \geq u$. This is a generalization of the notion of convexity (for harmonic function on the case of real line).
+\end{definition}
+
+Now we prove two technical lemmas.
+\begin{lemma}
+    \begin{enumerate}
+        \item If $u, v: Y \to \Rbb$ are subharmonic, then the pointwise maximum $\operatorname{max}(u, v)$ is subharmonic.
+        \item If $u: Y \to \Rbb$ is subharmonic and $D \in \operatorname{Reg}(Y)$, then $P_D(u)$ is subharmonic.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    For (1), we have that 
+    \[P_D( \max(u, v)) \geq \max(P_D u, P_D v).\]
+    Since $P_D u \geq u$ and $P_D v \geq v$, we have that $P_D(\max(u, v)) \geq \max(u, v)$. Note that the pointwise maximum of a finite set of functions is continuous.\\
+
+    For (2), we leave this as an exercise (or look it up in the textbook).
+\end{proof}
+
+Following the two technical statements above, we define the following.
+
+\begin{definition}
+    A set $\mathcal{F}$ of subharmonic functions on $Y$ is a \textbf{Perron family} if the following properties hold.
+    \begin{enumerate}
+        \item $\mathcal{F}$ is non-empty.
+        \item $u \in \mathcal{F}$, $D \in \operatorname{Reg}(Y)$ implies $P_D(u) \in \mathcal{F}$.
+        \item $u, v \in \mathcal{F}$ implies $\max(u, v) \in \mathcal{F}$.
+        \item There exists $B \in \Rbb$ such that for all $u \in \mathcal{F}$, $u \leq B$.
+    \end{enumerate}
+\end{definition}
+
+Now we arrive at the theorem.
+\begin{theorem}
+Let $\mathcal{F}$ be a Perron family. For $z \in Y$, let
+\[u^*(z) \coloneqq \sup_{u \in \mathcal{F}} u(z).\]
+Then $u^*$ is harmonic on $Y$.
+\end{theorem}
+
+\begin{proof}
+    We take $x \in Y$ and a sequence $(u_i)_{i = 1}^\infty$ in $\mathcal{F}$ such that $u_i(x) \leq u_{i+1}(x)$ for all $i$ (by taking repeated maximum) and $u_i(x) \to u^*(x)$. We take $D \in \operatorname{Reg}(Y)$ with $x \in D$, then $P_D(u_i)$ is increasing in $i$ and $\lim_{i \to \infty} P_D u_i(x) \leq u^*(x)$ because $u^*$ is the pointwise supremum.\\
+    
+    We claim that $\lim P_D u_i = u^*$ on $D$. Since each $P_D u_i$ is harmonic on $D$, this implies that $u^*$ is harmonic on $D$ by Harnack's Principle. Taking this over all $D$, we have that $u^*$ is harmonic on all of $Y$.\\
+    
+    To show the claim, write $v_i = P_D (u_i)$ and $v^* = \lim_{v_i}$. We wish to show that $v^* = u^*$. Suppose for contradiction that $u^*(y) > \lim_{i} v_i(y)$ for some $y \neq x$ in $D$. We can get $w_i \in \mathcal{F}$ increasing and harmonic on $D$ such that $w_i \geq v_i$ and $w_i(y) \to u^*(y)$ (we can take a sequence with $w_i(y) \to u^*(y)$ and modify it to be increasing).\\
+    
+    Then we have that
+    \[w^* \coloneqq \lim_{i \to \infty} w_i \text{ is harmonic on $D$ and } w^*(y) = u^*(y) > v^*(y)\]
+    and $w^* \geq v^*$ everywhere, and $w^*(x) = v^*(x)$. However, we note that $v^* - w^* \leq 0$ on $D$ and $(v^* - w^*)(x) = 0$, so $x$ is a maximum of the harmonic function $v^* - w^*$. Thus, the Maximum principle tells us that $v^* - w^* \equiv 0$ on $D$. However, we know that $(v^* - w^*)(y) \neq 0$, so we have a contradiction.
+\end{proof}
+
+Next time, we want to show that.
+\begin{theorem}
+    Given continuous and bounded $(\leq B)$ function $F: \partial Y \to \Rbb$ with $\partial Y$ smooth (possibly with a weaker condition). Let
+    \[\mathcal{F}_{f, B} = \{f: cl(Y) \to \Rbb \text{ subharmonic and } f \leq B, f|_{\partial Y} \leq F\}.\]
+    This is a Perron familty, and $\sup \mathcal{F}_{f, B}$ is a harmonic function agreeing with $F$ on $\partial Y$. This will prove Theorem~\ref{thm::perron}.
+\end{theorem}
+
+\newpage
+\section{Lecture May 7th}
+
+\subsection{Harmonic Function to Boundary}
+
+Let $X$ be a possibly large Riemann surface (for the remainder of the lecture we will assume it is possibly large without mentioning), and $Y \subseteq X$ be an open set. We will also use $cl(\bullet)$ and $\overline{\bullet}$ to both mean closure interchangeably in this lecture.\\
+
+\begin{definition}
+Let $x_0 \in \partial Y$, a \textbf{barrier} for $Y$ at $x_0$ is a neighborhood $V$ of $x_0$ and a continuous map $u: cl(Y) \cap V \to \Rbb$ such that 
+\begin{itemize}
+    \item $u(x_0) = 0$.
+    \item $u(x) < 0$ for $x \in cl(Y) \cap V \setminus \{x_0\}$.
+    \item $u$ is subharmonic on $Y \cap V$.
+\end{itemize}  
+We say $x_0 \in \partial Y$ is a \textbf{regular point} if it is a barrier. We say that $Y$ is \textbf{regular} if there is a barrier at each $x_0 \in \partial Y$.
+\end{definition}
+
+\begin{theorem}
+    If $\partial Y$ is $C^2$, then $Y$ is regular.
+\end{theorem}
+
+\begin{proof}
+   Given $x_0 \in \partial Y$. Since $\partial Y$ is $C^2$, we can construct a disk $D_m$ around $m$ in $Y^c$ such that $Y \cap \overline{D}_m = \emptyset$ and $x_0 \in \partial \overline{D}_m$. After that, we take $c = \frac{x_0 + m}{2}$ and take a disk $D'$ such that $\overline{Y} \cap \overline{D'} = \{x_0\}$. Here is a picture
+   \[\includegraphics[width=0.5\textwidth]{Figures/lec25-1.png}\]
+   In this case, we take
+   \[u = -\log|z - c| + \log \frac{r}{2}, r = |x_0 - m|.\]
+   In this case, we note that $u$ is harmonic on $\Cbb \setminus \{c\}$. Since $Y \cap V$ is a subset of $\Cbb \setminus \{c\}$, we have that $u$ is harmonic on $Y \cap V$.
+\end{proof}
+
+\begin{theorem}
+    Suppose $Y \subseteq X$, $f: \partial Y \to [A, B] \subseteq \Rbb$ is continuous (note that $\partial Y$ is not necessarily compact, so the boundedness assumption is not automatically implied). We let $\mathcal{V}_f$ be defined as
+    \[\mathcal{V}_f = \{u: cl(Y) \to (-\infty, B] \text{ $C^0$ s.t. $u$ is subharmonic on $Y$ and $u(x) \leq f(x)$ for all $x \in \partial Y$}\}.\]
+    Then $\mathcal{V}_f$ is a Perron family.\\
+
+    Furthermore, if $Y$ is regular, let $u^*: Y \to (-\infty, B]$ defined by 
+    \[u^*(x) = \sup_{u \in \mathcal{V}_f} u(x),\]
+    is harmonic and agrees with $f$ on $\partial Y$
+\end{theorem}
+
+\begin{proof}
+    Clearly each function in $\mathcal{V}_f$ has an uniform upperbound $B$ and is closed under finite maximum. It is an exercise to show that $\mathcal{V}_f$ preserves regularization. Thus, $\mathcal{V}_f$ is a Perron family.\\
+
+    Last lecture, we proved that for any Perron family, the supremum function defined by it is harmonic. Hence, $u^*$ is harmonic. It remains for us to prove that $u^*$ agrees with $f$ on $\partial Y$. To do this, we first establish a lemma.
+    \begin{lemma}
+        If $x_0 \in \partial Y$ is a regular point of $Y$, and we have constants $m < c$, and $V \ni x_0$ is open, then there exists a $C^0$ function $u: cl(Y) \to (-\infty, c]$ with $u|_Y$ subharmonic, $u(x_0) = c$, and $u|_{cl(Y) - V} \equiv m$.
+    \end{lemma}
+
+    \begin{proof}[Proof of Lemma]
+        Exercise. Or look at Foster.
+    \end{proof}
+
+    Now to finish the theorem. We take $x_0 \in \partial Y$. For all $\epsilon > 0$, there exists $V$ containing $x_0$ such that
+    \[f(V \cap \partial Y) \subseteq (f(x_0) - \epsilon, f(x_0) + \epsilon).\]
+    \underline{We want to show that $\lim_{y \in x_0, y \in Y} u^*(y) \in [f(x_0) - \epsilon, f(x_0) + \epsilon]$.} Since this holds for all $\epsilon > 0$, we will conclude that $u^*(x_0) = f(x_0)$. There are two steps to show this.
+    \begin{enumerate}
+        \item By the lemma, we get a continuous function $u: cl(Y) \to [A - \epsilon, f(x_0) - \epsilon]$ such that $u(x_0) = f(x_0) - \epsilon$, $u(x) = A - \epsilon$ for all $x \notin V$, $u(x) = A - \epsilon_0$. Thus, we have that $u \in \mathcal{V}_f$, $u \leq f$ on $\partial Y$, and by continuity
+        \[\lim_{y \to x_0, y \in Y} u = f(x_0) - \epsilon. \]
+        This then implies 
+        \[\lim \inf_{y \to x_0} u^*(y) \geq f(x_0) - \epsilon. \]
+        \item By the lemma again, there exists $v: cl(Y) \to [-B, -f(x_0)]$ that is $C^0$ and subharmonic on $Y$ with
+        \[v(x_0) = -f(x_0) - \epsilon, v(x) = -B \text{ on } cl(Y) - V.\]
+        Take any $u \in \mathcal{V}_f$, then $u+v$ is subharmonic on $Y$ as it is the sum of two subharmonic functions. Furthermore, $u + v \leq 0$ on $\partial (Y \cap V)$. Hence, $u + v \leq 0$ on $cl(Y) \cap V$ by the maximum principle. So we have that $u \leq -v$ on $cl(Y) \cap V$, so $\lim \sup_{y \to x_0} u(y) \leq - v(x_0) = f(x_0) + \epsilon$.
+    \end{enumerate}
+\end{proof}
+
+\subsection{Rado's Theorem}
+
+\begin{theorem}[Rado's Theorem]
+    Let $X$ be a possibly large Riemann surface, then $X$ is second-countable.
+\end{theorem}
+
+\begin{proof}
+    If $X$ is empty, we are done. Otherwise, we assume $X$ is non-empty.\\
+    
+    We take two disks $D_0, D_1$ on $X$ such that their closure has to be disjoint. Let $Y = X - (\overline{D_0} \cup \overline{D_1})$, then there exists a harmonic function $u: \overline{Y} \to [0,1]$ that is $C^0$, $u|_{D_i} \equiv i$, where $i = 0$ on $\partial D_0$ and $i = 1$ on $\partial D_1$. We now take the lift $\Tilde{u} = u \circ \pi$ where $\pi: \Tilde{Y} \to Y$ is the universal cover. Then we have that
+    \[g = \int_{z_0} \partial \Tilde{u} \in \mathcal{O}(\Tilde{Y}),\]
+    where $\partial$ denotes map in the $\partial$-criterion. Note that $\Tilde{u}$ being harmonic means we can write locally $\Tilde{u} = f_0 + \operatorname{conj}(f_1)$ where $f_0, f_1$ are holomorphic. In this case, $\partial \Tilde{u} = \partial f_0 \in \Omega^1(\Tilde{Y})$. $\Tilde{Y}$ being simply connected thus imply that $g \in \mathcal{O}(\Tilde{Y})$.\\
+
+    Thus, $g: \Tilde{Y} \to \Cbb$ is holomorphic and non-constant (if it is constant, then $u$ would be constant, but we know $u$ is not constant by construction). Then this means that $\Tilde{Y}$ is second countable by a theorem we proved a long time ago in this class (if $X \to Y$ is a non-constant holomorphic function, $Y$ is second countable RS, $X$ is possibly large RS, then $X$ is second countable), so $Y$ is, and so $X$ is.
+\end{proof}
+
+\subsection{The Uniformization Theorem}
+
+\begin{theorem}[The Uniformization theorem]
+    The only simply connected Riemann surfaces are either $\Cbb$, the disk $\mathbb{D}$, or the sphere $\Cbb P^1$.
+\end{theorem}
+
+To prove this, we will assume the following topological theorems without proof.
+\begin{theorem}
+We have the following list of topological theorems.
+\begin{enumerate}
+    \item Suppose $X$ is connected, simply connected, and second countable surface. Suppose $X \neq \mathbb{S}^2$, then $X = \bigcup_{n = 1}^\infty D_n$ where each $\overline{D_n} \subseteq D_{n+1} \subseteq X$ for all $n$, and $D_n$ is simply connected with smooth boundary. In other word, $X$ has a compact exhaustion of simply-connected disks with smooth boundary. In fact, to prove the Uniformization Theorem, it is enough to assume $H_1(D_n, \Rbb) = 0$.
+    \item If $D$ is a simply connected compact orientable (note this is implied by it being simply connected) surface iwth boundary, and $A \subseteq D$ is a ``small subdisk" ($B_\epsilon(z_0)$ in a chart), then $\pi_1(D \setminus \overline{A}) = \Zbb$. To prove the Uniformization theorem, it is enough to assume $H_1(D \setminus \overline{A}, \Rbb) = \Rbb$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    They exist somewhere in the literature, possibly in Foster.
+\end{proof}
+
+Now we will prove the long awaited Uniformization Theorem.
+\begin{proof}[Proof of the Uniformization Theorem]
+ Let $X$ be a simply connected Riemann surface. If $X$ is compact, then we are already done, as we have proven already that every compact simply connected Riemann surface is biholomorphic to $\Cbb P^1$. Thus, we assume that $X$ is not compact.\\
+
+ In this case, using Topological Theorem 1, we can get $X = \bigcup D_n$ as described in the theorem. We also make the disks all contain $z_0 \in X$ ($z_0$ contained in $D_1$). For each $n, m \in \Zbb^+$ with $m$ large, we can get $u: D_n \setminus B_{\frac{1}{m}}(z_0) \to [-1, 0]$ continuous on the whole domain and harmonic on $D_n \setminus \overline{B}_{1/m}(z_0)$. This is an annulus and we can take any $\gamma$ that goes once around this annulus.\\
+
+ Let $ih = \int_{\gamma} \partial u$. In this case, $ih$ depends only on the homotopy class of $\gamma$ and is thus a constant function in $\Cbb$ (this integral is essentially asking what is the period of the harmonic function).\\
+
+ \textbf{Claim: $h \in \Rbb$ and $h \neq 0$.} We leave the claim as an exercise for the interest of time by perhaps using the universal cover \mattie{This is the last lecture, 3 minutes away from end of class right now}. Except we are proving it anyways.\\
+ 
+ We can get $\Tilde{u}: \text{Universal cover of }D_n \to \overline{B}_{1/m}(z_0) \to \Rbb$ with $\Tilde{u} = \operatorname{Re}(f)$. Let $\operatorname{Deck}$ the deck group be generated by $\sigma$, then we have that $\Tilde{u}(\sigma(z)) = \Tilde{u}(z)$ for all $z$. Furthermore, we have that
+ \[f(\sigma(z)) - f(z) \equiv ip, p \in \Rbb \text{ because they have the same real part $\Tilde{u}$}.\]
+ Then let $g = \frac{2\pi f}{h}$, so $g(\sigma(z)) - g(z) = 2\pi i$. In this case, we have that $e^g$ is unaffected by $\sigma$ ($e^{2\pi i} = 1$), so $e^g$ descends back to a function on $D_n \setminus \overline{B_{1/m}(z)}$.\\
+
+ Now we take $q_{m, n} \coloneqq e^g$. This is a function $q_{m, n}:  \overline{D}_n - B_{1/m} \to \overline{\mathbb{D}} - \mathbb{D}_{e^{-2\pi/h}}$ with $q_{m, n}(\partial \overline{D}_n) \subseteq \partial \overline{D}$. Here is a picture:
+ \[\includegraphics[width=0.8\textwidth]{Figures/lec25-2.png}\]
+ This is a proper map, so it is a covering map. It's easy to see that $q_{m, n}$ takes a loop that wraps around once to a loop that wraps around once. In other words, $(q_{m, n})_*(\operatorname{generator}) = \operatorname{generator}$. Thus, we have that $q_{m, n}$ is an isomorphism.\\
+
+ Then, we have that any limit of $q_{m, n}$ as $m \to \infty$ is an isomorphism of $D_n \setminus \{z_0\} \to \mathbb{D} - 0$ and thus gives maps $D_n \to \mathbb{D}$. Thus, any limit of these (re-scaled) with $g'_n(z_0) = 1$ is an isomorphism from $X$ to $\mathbb{D}_R$ or $\Cbb$.
 \end{proof}
 
 
